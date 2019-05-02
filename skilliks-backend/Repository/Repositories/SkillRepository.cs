@@ -1,0 +1,16 @@
+﻿using Domain.Contracts.Repository;
+using Domain.Model;
+using Repository.Infrastructure;
+using System;
+using System.Collections.Generic;
+
+namespace Repository.Repositories
+{
+    public class SkillRepository : EntityRepository<Skill>, IRepository<Skill>
+    {
+        public SkillRepository()
+        {
+
+        }
+    }
+}
