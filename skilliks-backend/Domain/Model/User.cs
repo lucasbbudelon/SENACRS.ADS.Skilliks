@@ -1,21 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Domain.Contracts.Entity;
+using System;
 
 namespace Domain.Model
 {
-    public class User
+    public class User: IEntity
     {
-        public Guid Id { get; set; }
+        public long Id { get; set; }
+        public bool? IsExcluded { get; set; }
+        public bool? IsEnabled { get; set; }
+        public DateTime? RegistryDate { get; set; }
+
         public string Name { get; set; }
         public string Email { get; set; }
-        public UserType Type { get; set; }
-        public UserEmployee Employee { get; set; }
+        public UserType? Type { get; set; }
+        public UserEmployee? Employee { get; set; }
 
-        public User()
-        {
-
-        }
 
         public bool IsTechnical()
         {

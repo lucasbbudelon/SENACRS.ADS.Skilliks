@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Domain.Model;
-using Business;
+using Repository.Repositories;
 
 namespace WebApi.Controllers
 {
@@ -13,46 +10,86 @@ namespace WebApi.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private UserBusiness _business;
+        private UserRepository _repository;
 
         public UserController()
         {
-            _business = new UserBusiness();
+            _repository = new UserRepository();
         }
 
         // GET: api/User
         [HttpGet]
         public ActionResult<IEnumerable<User>> Get()
         {
-            return Ok(_business.GetAll());
+            try
+            {
+                var result = _repository.GetAll();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return UnprocessableEntity(ex);
+            }
         }
 
         // GET: api/User/5
         [HttpGet("{id}", Name = "Get")]
-        public ActionResult<User> Get(Guid id)
+        public ActionResult<User> Get(long id)
         {
-            return Ok(_business.GetById(id));
+            try
+            {
+                var result = _repository.Get(id);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return UnprocessableEntity(ex);
+            }
         }
 
         // POST: api/User
         [HttpPost]
-        public ActionResult<bool> Post([FromBody] User user)
+        public ActionResult Post([FromBody] User user)
         {
-            return Ok(_business.Save(user));
+            try
+            {
+                _repository.Insert(user);
+                return Ok(user);
+            }
+            catch (Exception ex)
+            {
+                return UnprocessableEntity(ex);
+            }
         }
 
         // PUT: api/User/5
         [HttpPut("{id}")]
-        public ActionResult<bool> Put(int id, [FromBody] string value)
+        public ActionResult Put(long id, [FromBody] User user)
         {
-            return Ok(true);
+            try
+            {
+                _repository.Update(id, user);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return UnprocessableEntity(ex);
+            }
         }
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public ActionResult<bool> Delete(int id)
+        public ActionResult<bool> Delete(long id)
         {
-            return Ok(true);
+            try
+            {
+                _repository.Delete(id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return UnprocessableEntity(ex);
+            }
         }
     }
 }

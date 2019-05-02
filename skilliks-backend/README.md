@@ -17,20 +17,22 @@
 
 ## Arquitetura
 
-O projeto
+O projeto possui as seguitnes camadas: WebApi, Domain e Repository.
 
 ### WebApi
 
 Camada responsável por expor as rotas da api e comunicar-se com o client. Seria o canal de entrada e saída dos dados.
-
-### Business
-
-Esta camada é reponsável por executar e gerenciar todas as régras de negócio da aplicação. Aqui e somente aqui devem estar as régras de negócio. Esta camada se comunica com a WebApi e com a Repository.
 
 ### Domain
 
 Nesta camada estão todas as entidades da aplicação, bem como seus contratos de dados e demais classes de domínio.
 
 ### Repository
-Camada de persistência de dados. Ela é reponsável por se comunicar com o banco de dados. A comunicação com banco de dados não deve ser engessada a um SGBD específico, para que, caso necessário, passamos trocar.
+Camada de persistência de dados, reponsável por comunicar-se com o banco de dados.
+
+#### SGBD
+Visando praticidade, agilidade e custos, este projeto está utilizando [sqlite](https://www.sqlite.org/index.html) como SGBD. Para manipular os dados, basta importar o arquivo ".sqlite" no [sqlitebrowser](https://sqlitebrowser.org/).
+ 
+#### ORM
+Este projeto está utilizando o micro ORM [dapper](https://dapper-tutorial.net/), devido sua praticidade e performace.
 
