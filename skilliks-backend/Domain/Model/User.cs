@@ -15,7 +15,6 @@ namespace Domain.Model
         public string Email { get; set; }
         public UserType? Type { get; set; }
         public UserEmployee? Employee { get; set; }
-        public List<Skill> Skills { get; set; }
 
         public bool IsTechnical()
         {

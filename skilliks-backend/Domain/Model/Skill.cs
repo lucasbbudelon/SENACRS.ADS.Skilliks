@@ -16,6 +16,6 @@ namespace Domain.Model
         public DateTime? RegistryDate { get; set; }
 
         public string Name { get; set; }
-        public int Ranking { get; set; }
+
     }
 }

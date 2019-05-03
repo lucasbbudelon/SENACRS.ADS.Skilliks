@@ -5,9 +5,9 @@ using System.Text;
 
 namespace Domain.Model
 {
-    public class Job: IEntity
+    public class JobSkills : IEntity
     {
-        public Job()
+        public JobSkills()
         {
 
         }
@@ -17,15 +17,8 @@ namespace Domain.Model
         public bool? IsEnabled { get; set; }
         public DateTime? RegistryDate { get; set; }
 
-        public string Nome { get; set; }
-        public Level Ranking { get; set; }
-    }
-
-    public enum Level
-    {
-        Trainee = 0,
-        Junior = 1,
-        Pleno = 2,
-        Senior = 3
+        public long IdJob { get; set; }
+        public long IdSkill { get; set; }
+        public int Ranking { get; set; }
     }
 }
