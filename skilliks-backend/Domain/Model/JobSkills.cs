@@ -17,8 +17,8 @@ namespace Domain.Model
         public bool? IsEnabled { get; set; }
         public DateTime? RegistryDate { get; set; }
 
-        public long IdJob { get; set; }
-        public long IdSkill { get; set; }
+        public Job Job { get; set; }
+        public Skill Skill { get; set; }
         public int Ranking { get; set; }
     }
 }
