@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Domain.Model;
+using Core.Services;
+using Data.Repositories;
+using Domain.Contracts.Repositories;
+using Domain.Contracts.Services;
+using Domain.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Repository.Repositories;
 
 namespace WebApi.Controllers
 {
@@ -13,11 +16,13 @@ namespace WebApi.Controllers
     [ApiController]
     public class SkillController : ControllerBase
     {
-        private SkillRepository _repository;
+        private readonly ISkillService _skillService;
+        private readonly ISkillRepository _skillRepository;
 
         public SkillController()
         {
-            _repository = new SkillRepository();
+            _skillRepository = new SkillRepository();
+            _skillService = new SkillService(_skillRepository);
         }
 
         // GET: api/Skill
@@ -26,7 +31,7 @@ namespace WebApi.Controllers
         {
             try
             {
-                var result = _repository.GetAll();
+                var result = _skillService.GetAll();
                 return Ok(result);
             }
             catch (Exception ex)
@@ -36,13 +41,18 @@ namespace WebApi.Controllers
         }
 
         // GET: api/Skill/5
-        [HttpGet("{id}", Name = "Get")]
+        [HttpGet("{id}")]
         public ActionResult<Skill> Get(long id)
         {
             try
             {
-                var result = _repository.Get(id);
-                return Ok(result);
+                var result = _skillService.Get(id);
+
+                if (result == null)
+                    return NotFound();
+                else
+                    return Ok(result);
+
             }
             catch (Exception ex)
             {
@@ -52,12 +62,12 @@ namespace WebApi.Controllers
 
         // POST: api/Skill
         [HttpPost]
-        public ActionResult Post([FromBody] Skill skill)
+        public ActionResult Post([FromBody] Skill Skill)
         {
             try
             {
-                _repository.Insert(skill);
-                return Ok(skill);
+                _skillService.Insert(Skill);
+                return Ok(Skill);
             }
             catch (Exception ex)
             {
@@ -67,11 +77,11 @@ namespace WebApi.Controllers
 
         // PUT: api/Skill/5
         [HttpPut("{id}")]
-        public ActionResult Put(long id, [FromBody] Skill skill)
+        public ActionResult Put(long id, [FromBody] Skill Skill)
         {
             try
             {
-                _repository.Update(id, skill);
+                _skillService.Update(id, Skill);
                 return Ok();
             }
             catch (Exception ex)
@@ -86,7 +96,7 @@ namespace WebApi.Controllers
         {
             try
             {
-                _repository.Delete(id);
+                _skillService.Delete(id);
                 return Ok();
             }
             catch (Exception ex)
