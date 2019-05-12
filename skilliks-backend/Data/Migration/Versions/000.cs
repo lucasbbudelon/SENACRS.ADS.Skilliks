@@ -14,8 +14,8 @@ namespace Data.Migration.Versions
             sql.AppendLine(@"create table User
                           (
                              Id             INTEGER PRIMARY KEY AUTOINCREMENT,
-                             IsExcluded     BOLEAN,
-                             IsEnabled      BOLEAN,
+                             ExclusionDate  DATETIME,
+                             DisabledDate   DATETIME,
                              RegistryDate   DATETIME,
                              Name           TEXT,
                              Email          TEXT,
@@ -26,8 +26,8 @@ namespace Data.Migration.Versions
             sql.AppendLine(@"create table Skill
                           (
                              Id             INTEGER PRIMARY KEY AUTOINCREMENT,
-                             IsExcluded     BOLEAN,
-                             IsEnabled      BOLEAN,
+                             ExclusionDate  DATETIME,
+                             DisabledDate   DATETIME,
                              RegistryDate   DATETIME,
                              Name           TEXT
                           );");
@@ -35,8 +35,8 @@ namespace Data.Migration.Versions
             sql.AppendLine(@"create table UserSkill
                           (
                              Id             INTEGER,
-                             IsExcluded     BOLEAN,
-                             IsEnabled      BOLEAN,
+                             ExclusionDate  DATETIME,
+                             DisabledDate   DATETIME,
                              RegistryDate   DATETIME,
                              IdUser         INTEGER,
                              IdSkill        INTEGER,

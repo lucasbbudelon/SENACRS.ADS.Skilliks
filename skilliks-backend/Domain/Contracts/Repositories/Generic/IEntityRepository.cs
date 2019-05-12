@@ -9,8 +9,6 @@ namespace Domain.Contracts.Repositories.Generic
 
         List<T> GetAll();
 
-        List<T> GetAllActive();
-
         List<T> GetAllByRelacionalKey(long relacionalKey);
 
         T Insert(T entity);

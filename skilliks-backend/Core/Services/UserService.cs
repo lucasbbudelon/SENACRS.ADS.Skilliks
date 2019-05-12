@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Domain.Contracts.Repositories;
 using Domain.Contracts.Services;
@@ -36,7 +37,7 @@ namespace Core.Services
 
         public List<User> GetAll()
         {
-            var users = _repository.GetAllActive();
+            var users = _repository.GetAll();
 
             foreach (var user in users)
             {
@@ -90,6 +91,22 @@ namespace Core.Services
             _repository.DeleteLogical(id);
         }
 
+        public UserDashboard GetDashboard()
+        {
+            var all = _repository.GetAll();
+
+            var dashboard = new UserDashboard
+            {
+                Total = all.Count(),
+                New = all.Count(x => x.RegistryDate > DateTime.Now.AddDays(-7)),
+                Active = all.Count(x => x.DisabledDate == null),
+                Inactive = all.Count(x => x.DisabledDate != null)
+            };
+
+            return dashboard;
+        }
+
+
         private List<UserSkill> LoadSkills(long idUser)
         {
             var userSkills = _userSkillRepository.GetAllByRelacionalKey(idUser);
@@ -100,6 +117,6 @@ namespace Core.Services
             }
 
             return userSkills;
-        }
+        } 
     }
 }

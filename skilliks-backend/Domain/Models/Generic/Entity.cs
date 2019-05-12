@@ -11,12 +11,12 @@ namespace Domain.Models.Generic
 
 
         [Category(EntityPropertyCategory.InternalControl)]
-        public bool IsExcluded { get; set; }
+        public DateTime? ExclusionDate { get; set; }
 
         [Category(EntityPropertyCategory.InternalControl)]
-        public bool IsEnabled { get; set; }
+        public DateTime? DisabledDate { get; set; }
 
         [Category(EntityPropertyCategory.InternalControl)]
-        public DateTime RegistryDate { get; set; }
+        public DateTime? RegistryDate { get; set; }
     }
 }

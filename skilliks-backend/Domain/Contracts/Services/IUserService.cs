@@ -5,5 +5,6 @@ namespace Domain.Contracts.Services
 {
     public interface IUserService : IEntityService<User>
     {
+        UserDashboard GetDashboard();
     }
 }

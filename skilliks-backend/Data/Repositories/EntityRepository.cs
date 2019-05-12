@@ -60,25 +60,6 @@ namespace Data.Repositories
             }
         }
 
-        public List<T> GetAllActive()
-        {
-            try
-            {
-                using (var connection = SimpleDbConnection())
-                {
-                    var sql = string.Format("SELECT * FROM {0} WHERE IsExcluded=FALSE AND IsEnabled=TRUE;", EntityInfo.Name);
-
-                    connection.Open();
-                    var result = connection.Query<T>(sql);
-                    return result.ToList();
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(string.Format("Error in {0}Repository.GetAllActive", EntityInfo.Name), ex);
-            }
-        }
-
         public List<T> GetAllByRelacionalKey(long relacionalKey)
         {
             try
@@ -106,8 +87,6 @@ namespace Data.Repositories
             {
                 using (var connection = SimpleDbConnection())
                 {
-                    entity.IsEnabled = true;
-                    entity.IsExcluded = false;
                     entity.RegistryDate = DateTime.Now;
 
                     var columns = string.Join(", ", EntityInfo.PropertiesForInsert);
@@ -158,12 +137,14 @@ namespace Data.Repositories
             {
                 using (var connection = SimpleDbConnection())
                 {
+                    var exclusionDate = DateTime.Now;
+
                     var where = string.Concat(EntityInfo.Key, "=@", EntityInfo.Key);
 
-                    var sql = string.Format("UPDATE {0} SET IsExcluded=TRUE WHERE {1};", EntityInfo.Name, where);
+                    var sql = string.Format("UPDATE {0} SET ExclusionDate=@exclusionDate WHERE {1};", EntityInfo.Name, where);
 
                     connection.Open();
-                    connection.Query<T>(sql, new { id });
+                    connection.Query<T>(sql, new { id, exclusionDate });
                 }
             }
             catch (Exception ex)
@@ -198,12 +179,14 @@ namespace Data.Repositories
             {
                 using (var connection = SimpleDbConnection())
                 {
+                    var exclusionDate = DateTime.Now;
+
                     var where = string.Concat(EntityInfo.RelacionalKey, "=@relacionalKey");
 
-                    var sql = string.Format("UPDATE {0} SET IsExcluded=TRUE WHERE {1};", EntityInfo.Name, where);
+                    var sql = string.Format("UPDATE {0} SET ExclusionDate=@exclusionDate WHERE {1};", EntityInfo.Name, where);
 
                     connection.Open();
-                    connection.Query<T>(sql, new { relacionalKey });
+                    connection.Query<T>(sql, new { relacionalKey, exclusionDate });
                 }
             }
             catch (Exception ex)

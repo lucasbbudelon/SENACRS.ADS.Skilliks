@@ -22,7 +22,7 @@ namespace Core.Services
 
         public List<Skill> GetAll()
         {
-            return _repository.GetAllActive();
+            return _repository.GetAll();
         }
         public Skill Insert(Skill entity)
         {

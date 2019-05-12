@@ -25,6 +25,14 @@ namespace Domain.Models
         [Category(EntityPropertyCategory.Relacional)]
         public List<UserSkill> Skills { get; set; }
 
+        [Category(EntityPropertyCategory.LoadRunTime)]
+        public bool IsEnable
+        {
+            get
+            {
+                return DisabledDate == null;
+            }
+        }
 
         [Category(EntityPropertyCategory.LoadRunTime)]
         public bool IsEmployee
@@ -61,6 +69,14 @@ namespace Domain.Models
                 return IsTechnical && !IsEmployee;
             }
         }
+    }
+
+    public class UserDashboard
+    {
+        public int Total { get; set; }
+        public int New { get; set; }
+        public int Active { get; set; }
+        public int Inactive { get; set; }
     }
 
     public enum UserType
