@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 
 import { User } from './user.model';
 
+import { environment } from '../../../environments/environment';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -13,7 +15,12 @@ export class UserService {
   ) { }
 
   getAll() {
-    const url = 'https://localhost:44345/api/user';
+    const url = `${environment.api}/user`;
     return this.httpClient.get<User[]>(url);
+  }
+
+  getById(id: string) {
+    const url = `${environment.api}/user/${id}`;
+    return this.httpClient.get<User>(url);
   }
 }

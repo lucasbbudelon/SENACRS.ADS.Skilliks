@@ -6,6 +6,8 @@ import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ClipboardModule } from 'ngx-clipboard';
 import { JobApplicantComponent } from '../../pages/job-applicant/job-applicant.component';
+import { UserFormComponent } from '../../pages/user/user-form/user-form.component';
+import { UserHeaderComponent } from '../../pages/user/user-header/user-header.component';
 import { UserComponent } from '../../pages/user/user.component';
 import { UserService } from '../../pages/user/user.service';
 import { AdminLayoutRoutes } from './admin-layout.routing';
@@ -21,6 +23,8 @@ import { AdminLayoutRoutes } from './admin-layout.routing';
   ],
   declarations: [
     UserComponent,
+    UserHeaderComponent,
+    UserFormComponent,
     JobApplicantComponent
   ],
   providers: [

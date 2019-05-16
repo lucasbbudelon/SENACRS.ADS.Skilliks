@@ -11,7 +11,7 @@ import { empty } from 'rxjs';
   styleUrls: ['./user.component.scss']
 })
 export class UserComponent implements OnInit {
-z
+
   public users: User[];
 
   constructor(
