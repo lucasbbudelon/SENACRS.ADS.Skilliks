@@ -1,21 +1,14 @@
-import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http'; import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
-import { ClipboardModule } from 'ngx-clipboard';
-
-import { AdminLayoutRoutes } from './admin-layout.routing';
-import { DashboardComponent } from '../../pages/dashboard/dashboard.component';
-import { IconsComponent } from '../../pages/icons/icons.component';
-import { MapsComponent } from '../../pages/maps/maps.component';
-import { UserProfileComponent } from '../../pages/user-profile/user-profile.component';
-import { TablesComponent } from '../../pages/tables/tables.component';
+import { HttpClientModule } from '@angular/common/http';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-// import { ToastrModule } from 'ngx-toastr';
-
-import { UserService } from '../../pages/user/user.service';
+import { ClipboardModule } from 'ngx-clipboard';
+import { JobApplicantComponent } from '../../pages/job-applicant/job-applicant.component';
 import { UserComponent } from '../../pages/user/user.component';
+import { UserService } from '../../pages/user/user.service';
+import { AdminLayoutRoutes } from './admin-layout.routing';
 
 @NgModule({
   imports: [
@@ -27,13 +20,8 @@ import { UserComponent } from '../../pages/user/user.component';
     ClipboardModule
   ],
   declarations: [
-    DashboardComponent,
-    UserProfileComponent,
-    TablesComponent,
-    IconsComponent,
-    MapsComponent,
-
-    UserComponent
+    UserComponent,
+    JobApplicantComponent
   ],
   providers: [
     UserService
