@@ -8,10 +8,10 @@ namespace Domain.Models
     public class JobSkill : Entity, IEntity
     {
         [Category(EntityPropertyCategory.RelacionalKey)]
-        public int IdJob { get; set; }
+        public long IdJob { get; set; }
 
         [Category(EntityPropertyCategory.ForeignKey)]
-        public int IdSkill { get; set; }
+        public long IdSkill { get; set; }
 
 
         [Category(EntityPropertyCategory.Model)]
