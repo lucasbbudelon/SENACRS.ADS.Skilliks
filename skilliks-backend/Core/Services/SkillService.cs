@@ -24,6 +24,7 @@ namespace Core.Services
         {
             return _repository.GetAll();
         }
+
         public Skill Insert(Skill entity)
         {
             return _repository.Insert(entity);
@@ -33,6 +34,7 @@ namespace Core.Services
         {
             _repository.Update(id, entity);
         }
+
         public void Delete(long id)
         {
             _repository.DeleteLogical(id);

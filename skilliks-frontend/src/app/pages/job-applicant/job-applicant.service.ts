@@ -1,24 +1,24 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
-import { User } from './user.model';
+import { JobApplicant } from './job-applicant.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
+export class JobApplicantService {
 
   constructor(
     private httpClient: HttpClient
   ) { }
 
   getAll() {
-    const url = `${environment.api}/user`;
-    return this.httpClient.get<User[]>(url);
+    const url = `${environment.api}/jobApplicant`;
+    return this.httpClient.get<JobApplicant[]>(url);
   }
 
   getById(id: string) {
-    const url = `${environment.api}/user/${id}`;
-    return this.httpClient.get<User>(url);
+    const url = `${environment.api}/jobApplicant/${id}`;
+    return this.httpClient.get<JobApplicant>(url);
   }
 }

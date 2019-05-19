@@ -21,6 +21,9 @@ namespace Domain.Models
         [Category(EntityPropertyCategory.Model)]
         public UserCategory Category { get; set; }
 
+        [Category(EntityPropertyCategory.Model)]
+        public double LastSalary { get; set; }
+
 
         [Category(EntityPropertyCategory.Relacional)]
         public List<UserSkill> Skills { get; set; }

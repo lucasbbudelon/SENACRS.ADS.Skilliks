@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { empty } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
-
 import { User } from './user.model';
 import { UserService } from './user.service';
-import { empty } from 'rxjs';
 
 @Component({
   selector: 'app-user',

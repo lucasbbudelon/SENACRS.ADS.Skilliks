@@ -19,7 +19,7 @@ namespace Domain.Models
         public Level Level { get; set; }
 
         [Category(EntityPropertyCategory.Model)]
-        public decimal Remuneration { get; set; }
+        public double Remuneration { get; set; }
 
 
         [Category(EntityPropertyCategory.Relacional)]
@@ -30,7 +30,7 @@ namespace Domain.Models
     {
         Trainee = 0,
         Junior = 1,
-        Pleno = 2,
+        Full = 2,
         Senior = 3
     }
 }

@@ -9,17 +9,14 @@ namespace Domain.Models
     {
 
         [Category(EntityPropertyCategory.ForeignKey)]
-        public int IdJob { get; set; }
+        public long IdJob { get; set; }
 
         [Category(EntityPropertyCategory.ForeignKey)]
-        public int IdApplicant { get; set; }
+        public long IdApplicant { get; set; }
                
 
         [Category(EntityPropertyCategory.Model)]
-        public decimal SalaryClaim { get; set; }
-
-        [Category(EntityPropertyCategory.Model)]
-        public decimal LastSalary { get; set; }
+        public double SalaryClaim { get; set; }
 
         
         [Category(EntityPropertyCategory.Relacional)]
@@ -30,6 +27,6 @@ namespace Domain.Models
 
 
         [Category(EntityPropertyCategory.LoadRunTime)]
-        public decimal Ranking { get; set; }
+        public double Ranking { get; set; }
     }
 }

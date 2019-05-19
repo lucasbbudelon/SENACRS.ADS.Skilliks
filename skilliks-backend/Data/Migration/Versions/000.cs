@@ -20,7 +20,8 @@ namespace Data.Migration.Versions
                              Name           TEXT,
                              Email          TEXT,
                              Type           NUMERIC,
-                             Category       NUMERIC
+                             Category       NUMERIC,
+                             LastSalary     DECIMAL
                           );");
 
             sql.AppendLine(@"create table Skill
@@ -43,6 +44,40 @@ namespace Data.Migration.Versions
                              Ranking        INTEGER
                           );");
 
+            sql.AppendLine(@"create table Job
+                          (
+                             Id             INTEGER PRIMARY KEY AUTOINCREMENT,
+                             ExclusionDate  DATETIME,
+                             DisabledDate   DATETIME,
+                             RegistryDate   DATETIME,
+                             Name           TEXT,
+                             Description    TEXT,
+                             Level          NUMERIC,
+                             Remuneration   DECIMAL
+                          );");
+
+            sql.AppendLine(@"create table JobSkill
+                          (
+                             Id             INTEGER,
+                             ExclusionDate  DATETIME,
+                             DisabledDate   DATETIME,
+                             RegistryDate   DATETIME,
+                             IdJob          INTEGER,
+                             IdSkill        INTEGER,
+                             Ranking        INTEGER
+                          );");
+
+            sql.AppendLine(@"create table JobApplicant
+                          (
+                             Id             INTEGER PRIMARY KEY AUTOINCREMENT,
+                             ExclusionDate  DATETIME,
+                             DisabledDate   DATETIME,
+                             RegistryDate   DATETIME,
+                             IdJob          INTEGER,
+                             IdApplicant    INTEGER,
+                             SalaryClaim    DECIMAL
+                          );");
+
             return sql.ToString();
         }
 
@@ -53,6 +88,9 @@ namespace Data.Migration.Versions
             sql.AppendLine(@"drop table User;");
             sql.AppendLine(@"drop table Skill;");
             sql.AppendLine(@"drop table UserSkill;");
+            sql.AppendLine(@"drop table Job;");
+            sql.AppendLine(@"drop table JobSkill;");
+            sql.AppendLine(@"drop table JobApplicant;");
 
             return sql.ToString();
         }
