@@ -13,15 +13,22 @@ namespace Data.Migration.Versions
 
             sql.AppendLine(@"create table User
                           (
-                             Id             INTEGER PRIMARY KEY AUTOINCREMENT,
-                             ExclusionDate  DATETIME,
-                             DisabledDate   DATETIME,
-                             RegistryDate   DATETIME,
-                             Name           TEXT,
-                             Email          TEXT,
-                             Type           NUMERIC,
-                             Category       NUMERIC,
-                             LastSalary     DECIMAL
+                             Id                 INTEGER PRIMARY KEY AUTOINCREMENT,
+                             ExclusionDate      DATETIME,
+                             DisabledDate       DATETIME,
+                             RegistryDate       DATETIME,
+                             Image              TEXT,
+                             Name               TEXT,
+                             Description        TEXT,
+                             Birthday           TEXT,
+                             Email              TEXT,
+                             Phone              TEXT,
+                             Address            TEXT,
+                             Type               NUMERIC,
+                             Category           NUMERIC,
+                             CurrentPosition    TEXT,
+                             CurrentCompany     TEXT,
+                             CurrentWage        DECIMAL
                           );");
 
             sql.AppendLine(@"create table Skill

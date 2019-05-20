@@ -100,7 +100,9 @@ namespace Core.Services
                 jobSkill.Skill = _skillRepository.Get(jobSkill.IdSkill);
             }
 
-            return jobSkills;
+            return jobSkills
+                .OrderByDescending(x => x.Ranking)
+                .ToList();
         }
     }
 }

@@ -10,10 +10,25 @@ namespace Domain.Models
     public class User : Entity, IEntity
     {
         [Category(EntityPropertyCategory.Model)]
+        public string Image { get; set; }
+
+        [Category(EntityPropertyCategory.Model)]
         public string Name { get; set; }
 
         [Category(EntityPropertyCategory.Model)]
+        public string Description { get; set; }
+
+        [Category(EntityPropertyCategory.Model)]
+        public DateTime Birthday { get; set; }
+
+        [Category(EntityPropertyCategory.Model)]
         public string Email { get; set; }
+
+        [Category(EntityPropertyCategory.Model)]
+        public string Phone { get; set; }
+
+        [Category(EntityPropertyCategory.Model)]
+        public string Address { get; set; }
 
         [Category(EntityPropertyCategory.Model)]
         public UserType Type { get; set; }
@@ -22,11 +37,35 @@ namespace Domain.Models
         public UserCategory Category { get; set; }
 
         [Category(EntityPropertyCategory.Model)]
-        public double LastSalary { get; set; }
+        public string CurrentPosition { get; set; }
+
+        [Category(EntityPropertyCategory.Model)]
+        public string CurrentCompany { get; set; }
+
+        [Category(EntityPropertyCategory.Model)]
+        public double CurrentWage { get; set; }
 
 
         [Category(EntityPropertyCategory.Relacional)]
         public List<UserSkill> Skills { get; set; }
+
+        [Category(EntityPropertyCategory.LoadRunTime)]
+        public int Age
+        {
+            get
+            {
+                return DateTime.Now.Year - Birthday.Year;
+            }
+        }
+
+        [Category(EntityPropertyCategory.LoadRunTime)]
+        public int Evaluations { get; set; }
+
+        [Category(EntityPropertyCategory.LoadRunTime)]
+        public int Interviews { get; set; }
+
+        [Category(EntityPropertyCategory.LoadRunTime)]
+        public int Applications { get; set; }
 
         [Category(EntityPropertyCategory.LoadRunTime)]
         public bool IsEnable
@@ -72,14 +111,6 @@ namespace Domain.Models
                 return IsTechnical && !IsEmployee;
             }
         }
-    }
-
-    public class UserDashboard
-    {
-        public int Total { get; set; }
-        public int New { get; set; }
-        public int Active { get; set; }
-        public int Inactive { get; set; }
     }
 
     public enum UserType

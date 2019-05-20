@@ -1,9 +1,21 @@
 export interface User {
     isEnable: boolean;
+
+    image: string;
     name: string;
+    description: string;
+    age: number;
     email: string;
+    phone: string;
+    address: string;
     type: UserType;
     category: UserCategory;
+    currentPosition: string;
+    currentCompany: string;
+    currentWage: number;
+    evaluations: number;
+    interviews: number;
+    applications: number;
     skills: any[];
 }
 

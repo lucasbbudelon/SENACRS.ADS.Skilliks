@@ -23,7 +23,7 @@ const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'users'
+    redirectTo: 'candidaturas'
   }
 ];
 

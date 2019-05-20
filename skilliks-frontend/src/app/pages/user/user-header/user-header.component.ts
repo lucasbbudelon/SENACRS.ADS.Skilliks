@@ -28,7 +28,7 @@ export class UserHeaderComponent implements OnInit {
   getPercentageApplicants() {
     const totalUsers = this.getTotalUsers();
     const totalApplicants = this.getTotalApplicants();
-    return (totalApplicants / totalUsers) * 100;
+    return (totalApplicants / totalUsers);
   }
 
   getTotalEmployees() {
@@ -38,7 +38,7 @@ export class UserHeaderComponent implements OnInit {
   getPercentageEmployees() {
     const totalUsers = this.getTotalUsers();
     const totalEmployees = this.getTotalEmployees();
-    return (totalEmployees / totalUsers) * 100;
+    return (totalEmployees / totalUsers);
   }
 
   getTotalInactive() {
@@ -48,6 +48,6 @@ export class UserHeaderComponent implements OnInit {
   getPercentageInactive() {
     const totalUsers = this.getTotalUsers();
     const totalInactive = this.getTotalInactive();
-    return (totalInactive / totalUsers) * 100;
+    return (totalInactive / totalUsers);
   }
 }
