@@ -1,0 +1,33 @@
+<div *ngIf="isLoading()" class="loading">
+  <div class="lds-ring">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+</div>
+
+<div *ngIf="isInfo()" class="alert alert-info alert-dismissible fade show" role="alert">
+  <span class="alert-inner--text"><strong>Informação!</strong> {{isInfo()}}</span>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">×</span>
+  </button>
+</div>
+<div *ngIf="isSuccess()"class="alert alert-success alert-dismissible fade show" role="alert">
+  <span class="alert-inner--text"><strong>Sucesso!</strong> {{isSuccess()}}</span>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">×</span>
+  </button>
+</div>
+<div *ngIf="isAlert()" class="alert alert-warning alert-dismissible fade show" role="alert">
+  <span class="alert-inner--text"><strong>Aviso!</strong> {{isAlert()}}</span>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">×</span>
+  </button>
+</div>
+<div *ngIf="isError()" class="alert alert-danger alert-dismissible fade show" role="alert">
+  <span class="alert-inner--text"><strong>Erro!</strong> {{isError()}}</span>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">×</span>
+  </button>
+</div>

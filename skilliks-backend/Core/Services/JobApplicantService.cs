@@ -76,20 +76,17 @@ namespace Core.Services
 
                     if (applicantSkill.Ranking > jobSkill.Ranking)
                     {
-                        ranking += percent * 1.5;
-                    }
-                    else if (applicantSkill.Ranking < jobSkill.Ranking)
-                    {
-                        ranking += percent * 0.5;
+                        ranking += jobSkill.Weight;
+                        jobApplicant.Star = true;
                     }
                     else
                     {
-                        ranking += percent;
+                        ranking += (jobSkill.Weight / jobSkill.Ranking) * applicantSkill.Ranking;
                     }
                 }
             }
 
-            return ranking > 100 ? 100 : ranking;
+            return ranking;
         }
     }
 }

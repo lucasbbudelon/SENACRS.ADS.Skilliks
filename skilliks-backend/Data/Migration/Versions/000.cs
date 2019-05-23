@@ -71,7 +71,8 @@ namespace Data.Migration.Versions
                              RegistryDate   DATETIME,
                              IdJob          INTEGER,
                              IdSkill        INTEGER,
-                             Ranking        INTEGER
+                             Ranking        INTEGER,
+                             Weight         INTEGER
                           );");
 
             sql.AppendLine(@"create table JobApplicant
@@ -82,7 +83,8 @@ namespace Data.Migration.Versions
                              RegistryDate   DATETIME,
                              IdJob          INTEGER,
                              IdApplicant    INTEGER,
-                             SalaryClaim    DECIMAL
+                             SalaryClaim    DECIMAL,
+                             Star           BOOLEAN
                           );");
 
             return sql.ToString();

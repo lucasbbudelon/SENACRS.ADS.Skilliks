@@ -28,5 +28,8 @@ namespace Domain.Models
 
         [Category(EntityPropertyCategory.LoadRunTime)]
         public double Ranking { get; set; }
+
+        [Category(EntityPropertyCategory.LoadRunTime)]
+        public bool Star { get; set; }
     }
 }

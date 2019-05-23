@@ -1,10 +1,13 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SidebarComponent } from './sidebar/sidebar.component';
-import { NavbarComponent } from './navbar/navbar.component';
-import { FooterComponent } from './footer/footer.component';
+import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ApiFeedbackComponent } from './api-feedback/api-feedback.component';
+import { ApiFeedbackService } from './api-feedback/api-feedback.service';
+import { FooterComponent } from './footer/footer.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
+import { StarRankingComponent } from './star-ranking/star-ranking.component';
 
 @NgModule({
   imports: [
@@ -15,12 +18,19 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
   declarations: [
     FooterComponent,
     NavbarComponent,
-    SidebarComponent
+    SidebarComponent,
+    ApiFeedbackComponent,
+    StarRankingComponent
   ],
   exports: [
     FooterComponent,
     NavbarComponent,
-    SidebarComponent
+    SidebarComponent,
+    ApiFeedbackComponent,
+    StarRankingComponent
+  ],
+  providers: [
+    ApiFeedbackService
   ]
 })
 export class ComponentsModule { }

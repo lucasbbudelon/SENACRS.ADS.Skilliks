@@ -1,20 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { catchError, finalize, tap } from 'rxjs/operators';
 import { ApiFeedbackService } from 'src/app/components/api-feedback/api-feedback.service';
-import { JobApplicant } from './job-applicant.model';
-import { JobApplicantService } from './job-applicant.service';
+import { Job } from './job.model';
+import { JobService } from './job.service';
 
 @Component({
-  selector: 'app-job-applicant',
-  templateUrl: './job-applicant.component.html',
-  styleUrls: ['./job-applicant.component.scss']
+  selector: 'app-job',
+  templateUrl: './job.component.html',
+  styleUrls: ['./job.component.scss']
 })
-export class JobApplicantComponent implements OnInit {
+export class JobComponent implements OnInit {
 
-  public jobApplicants: JobApplicant[];
+  public jobs: Job[];
 
   constructor(
-    private jobApplicantService: JobApplicantService,
+    private jobService: JobService,
     private apiFeedbackService: ApiFeedbackService
   ) { }
 
@@ -24,9 +24,9 @@ export class JobApplicantComponent implements OnInit {
 
   private loadList() {
     this.apiFeedbackService.showLoading();
-    this.jobApplicantService.getAll()
+    this.jobService.getAll()
       .pipe(
-        tap((jobApplicants) => this.jobApplicants = jobApplicants),
+        tap((jobs) => this.jobs = jobs),
         catchError((error) => this.apiFeedbackService.handlerError(error)),
         finalize(() => this.apiFeedbackService.hideLoading())
       )

@@ -17,7 +17,10 @@ namespace Domain.Models
         [Category(EntityPropertyCategory.Model)]
         public int Ranking { get; set; }
 
-        
+        [Category(EntityPropertyCategory.Model)]
+        public int Weight { get; set; }
+
+
         [Category(EntityPropertyCategory.Relacional)]
         public Skill Skill { get; set; }
     }

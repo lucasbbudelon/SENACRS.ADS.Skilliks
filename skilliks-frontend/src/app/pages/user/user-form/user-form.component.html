@@ -84,7 +84,7 @@
                 <div class="row">
                   <div class="col-4">{{userSkill.skill.name}}</div>
                   <div class="col-4">
-                    <i *ngFor="let r of getStars(userSkill)" class="fas fa-star mx-2"></i>
+                    <app-star-ranking [ranking]="userSkill.ranking"></app-star-ranking>
                   </div>
                 </div>
               </li>

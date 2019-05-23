@@ -18,29 +18,34 @@
                 <th scope="col">Vaga</th>
                 <th scope="col">Salário base</th>
                 <th scope="col">Nível</th>
-                <th scope="col">Math</th>
+                <th scope="col">Match</th>
+                <th scope="col"></th>
                 <th scope="col"></th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let jobApplicant of jobApplicants">
-                <th scope="row">
-                  {{jobApplicant.applicant.name}}
-                </th>
+                <td>
+                  <a routerLink="/usuario/{{jobApplicant.applicant.id}}">
+                    {{jobApplicant.applicant.name}}
+                  </a>
+                </td>
                 <td>
                   {{jobApplicant.salaryClaim | currency}}
                 </td>
                 <td>
-                  {{jobApplicant.job.name}}
+                  <a routerLink="/vaga/{{jobApplicant.job.id}}">
+                    {{jobApplicant.job.name}}
+                  </a>
                 </td>
                 <td>
                   {{jobApplicant.job.remuneration | currency}}
                 </td>
                 <td [ngSwitch]="jobApplicant.job.level">
-                  <span *ngSwitchCase="1">estagiário</span>
-                  <span *ngSwitchCase="2">júnior</span>
-                  <span *ngSwitchCase="3">pleno</span>
-                  <span *ngSwitchCase="4">sênior</span>
+                  <span *ngSwitchCase="0">estagiário</span>
+                  <span *ngSwitchCase="1">júnior</span>
+                  <span *ngSwitchCase="2">pleno</span>
+                  <span *ngSwitchCase="3">sênior</span>
                 </td>
                 <td>
                   <div class="d-flex align-items-center">
@@ -49,10 +54,14 @@
                       <div class="progress">
                         <div class="progress-bar bg-warning" role="progressbar"
                           [attr.aria-valuenow]="jobApplicant.ranking" aria-valuemin="0" aria-valuemax="100"
-                          [style.width.%]="jobApplicant.ranking"></div>
+                          [style.width.%]="jobApplicant.ranking">
+                        </div>
                       </div>
                     </div>
                   </div>
+                </td>
+                <td>
+                  <i *ngIf="jobApplicant.star" class="fas fa-star"></i>
                 </td>
                 <td class="text-right">
                   <div ngbDropdown placement="bottom-right">
@@ -60,9 +69,7 @@
                       <i class="fas fa-ellipsis-v"></i>
                     </a>
                     <div ngbDropdownMenu class=" dropdown-menu-right dropdown-menu-arrow">
-                      <a class="dropdown-item" href="javascript:void(0)">Detalhes da vaga</a>
-                      <a class="dropdown-item" routerLink="/user/{{jobApplicant.applicant.id}}">Detalhes do
-                        candidato</a>
+                      <a class="dropdown-item" routerLink="/candidatura/{{jobApplicant.id}}">Detalhes</a>
                       <a class="dropdown-item" href="javascript:void(0)">Marcar entrevista</a>
                       <a class="dropdown-item" href="javascript:void(0)">Rejeitar cadidatura</a>
                     </div>

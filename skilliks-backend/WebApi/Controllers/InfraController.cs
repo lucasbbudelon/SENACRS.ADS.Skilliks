@@ -111,8 +111,8 @@ namespace WebApi.Controllers
 
         private void LoadMockUsers()
         {
-            int maximumUserSkillValue = 10;
-
+            int numberMaximumUserSkill = 10;
+            int numberOfUsers = 20;
 
             foreach (var item in _userRepository.GetAll())
             {
@@ -122,24 +122,35 @@ namespace WebApi.Controllers
 
             var skills = _skillRepository.GetAll();
 
-            string[] names = {
-                "Ricardo Guilherme Silveira", "Fernando Carlos Eduardo da Mota", "Danilo Marcos Vinicius Farias",
-                "Geraldo Samuel Igor da Costa", "Gabriel Ricardo Danilo de Paula", "Arthur Marcos da Cunha",
-                "Davi Augusto Moreira", "Hugo Manuel Pietro Ribeiro", "Emanuel Levi da Rocha",
-                "Lorenzo Arthur da Mata", "Benjamin Iago Igor da Costa", "Diogo Theo da Cunha",
-                "Milena Sophie Manuela Gomes", "Laura Nair Elisa da Costa", "Vanessa Joana Brenda Pires",
-                "Antonella Brenda Emanuelly Costa", "Sueli Sara Melo", "Isabel Julia Aline Duarte",
-                "Brenda Helena Isabelle Moreira", "Aparecida Isis Alves", "Maria Heloisa Pinto",
-                "Maria Stella Bianca Teixeira", "Sarah Beatriz Sales", "Clarice Marcia da Cunha"
+            string[] firstNames = {
+                "Ricardo", "Fernando", "Danilo", "Guilherme", "Carlos", "Samuel", "Igor","Marcos","Augusto","Manuel",
+                "Geraldo", "Gabriel", "Arthur", "Theo", "Davi", "Hugo", "Emanuel", "Lorenzo", "Benjamin", "Diogo",
+                "Milena", "Laura", "Vanessa","Sophie", "Manuela", "Elisa", "Joana","Brenda", "Emanuelly", "Antonella",
+                "Sueli", "Isabel", "Aline", "Julia","Helena", "Isabelle", "Maria", "Sarah", "Brenda", "Isis"
              };
 
-            for (int i = 0; i < names.Length; i++)
+            string[] middleNames = {
+                "Silveira", "Moreira", "Farias", "Pietro", "Ribeiro",
+                "Levi", "Gomes", "Pires", "Nair", "Costa",
+                "Pinto", "Silva", "Severo", "Marques", "Santos"
+            };
+
+            string[] lastNames = {
+                "da Costa", "da Mota", "de Paula", "da Cunha", "da Rocha",
+                "da Mata", "Melo", "Duarte", "Aparecida", "Alves",
+                "Teixeira", "Sales", "da Silva", "Campos","Moura"
+            };
+
+            for (int i = 0; i < numberOfUsers; i++)
             {
-                string name = names[i];
+                string name = string.Format("{0} {1} {2}",
+                    firstNames[_random.Next(firstNames.Length)],
+                    middleNames[_random.Next(middleNames.Length)],
+                    lastNames[_random.Next(lastNames.Length)]);
 
                 var newUser = new User()
                 {
-                    Image = string.Format("assets/img/users/{0}.jpg", i+1),
+                    Image = string.Format("assets/img/users/{0}.jpg", _random.Next(25)),
                     Name = name,
                     Description = RamdomDescription(),
                     Birthday = RamdomBirthday(),
@@ -154,10 +165,15 @@ namespace WebApi.Controllers
                     Skills = new List<UserSkill>()
                 };
 
-                for (int j = 0; j < _random.Next(1, maximumUserSkillValue); j++)
+                for (int j = 0; j < _random.Next(1, numberMaximumUserSkill); j++)
                 {
                     var idSkill = skills[_random.Next(skills.Count)].Id;
-                    if (!newUser.Skills.Any(x => x.IdSkill == idSkill))
+
+                    if (newUser.Skills.Any(x => x.IdSkill == idSkill))
+                    {
+                        j--;
+                    }
+                    else
                     {
                         newUser.Skills.Add(new UserSkill()
                         {
@@ -173,8 +189,8 @@ namespace WebApi.Controllers
 
         private void LoadMockJobs()
         {
-            int maximumNumberOfJobs = 10;
-            int maximumJobSkillValue = 10;
+            int maximumNumberOfJobs = 20;
+            int maximumNumberJobSkill = 10;
 
             foreach (var item in _jobRepository.GetAll())
             {
@@ -197,15 +213,23 @@ namespace WebApi.Controllers
                     Skills = new List<JobSkill>()
                 };
 
-                for (int j = 0; j < _random.Next(1, maximumJobSkillValue); j++)
+                var numberJobSkill = _random.Next(1, maximumNumberJobSkill);
+
+                for (int j = 0; j < numberJobSkill; j++)
                 {
                     var idSkill = skills[_random.Next(skills.Count)].Id;
-                    if (!newJob.Skills.Any(x => x.IdSkill == idSkill))
+
+                    if (newJob.Skills.Any(x => x.IdSkill == idSkill))
+                    {
+                        j--;
+                    }
+                    else
                     {
                         newJob.Skills.Add(new JobSkill()
                         {
                             IdSkill = idSkill,
-                            Ranking = _random.Next(1, 5)
+                            Ranking = _random.Next(1, 5),
+                            Weight = 100 / numberJobSkill
                         });
                     }
                 }
@@ -216,7 +240,7 @@ namespace WebApi.Controllers
 
         private void LoadJobApplicant()
         {
-            int numberJobApplicants = 25;
+            int numberJobApplicants = 20;
 
             var users = _userRepository.GetAll();
             var jobs = _jobRepository.GetAll();

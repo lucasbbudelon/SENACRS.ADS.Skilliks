@@ -24,14 +24,6 @@ export class UserFormComponent implements OnInit {
     this.loadUser(id);
   }
 
-  getStars(userSkill) {
-    const stars = [];
-    for (let i = 0; i < userSkill.ranking; i++) {
-      stars.push(true);
-    }
-    return stars;
-  }
-
   private loadUser(id: string) {
     this.user = null;
     this.userService.getById(id)
