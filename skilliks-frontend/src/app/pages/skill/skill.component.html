@@ -1,0 +1,28 @@
+<div class="header bg-gradient-primary pb-8 pt-5 pt-md-8" *ngIf="skills">
+
+</div>
+
+<div class="container-fluid mt--7" *ngIf="skills">
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="table-responsive">
+          <table class="table align-items-center table-flush">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col">Nome</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let skill of skills">
+                <th scope="row">
+                  {{skill.name}}
+                </th>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

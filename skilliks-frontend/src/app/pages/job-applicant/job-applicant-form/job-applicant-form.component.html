@@ -1,5 +1,5 @@
 <div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center">
-  <span class="mask bg-gradient-danger opacity-8"></span>
+  <span class="mask bg-gradient-primary opacity-8"></span>
 </div>
 <div class="container-fluid mt--7" *ngIf="jobApplicant">
   <div class="row">
@@ -84,7 +84,7 @@
                   <app-star-ranking [ranking]="jobSkill.rankingApplicant"></app-star-ranking>
                 </td>
                 <td>
-                  <i *ngIf="jobSkill.rankingApplicant > jobSkill.ranking" class="fas fa-star mx-2"></i>
+                  <i *ngIf="jobSkill.rankingApplicant > jobSkill.ranking" class="fas fa-star mx-2 text-primary"></i>
                 </td>
               </tr>
             </tbody>

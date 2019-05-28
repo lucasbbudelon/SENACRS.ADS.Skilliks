@@ -112,7 +112,6 @@ namespace WebApi.Controllers
         private void LoadMockUsers()
         {
             int numberMaximumUserSkill = 10;
-            int numberOfUsers = 20;
 
             foreach (var item in _userRepository.GetAll())
             {
@@ -122,9 +121,12 @@ namespace WebApi.Controllers
 
             var skills = _skillRepository.GetAll();
 
-            string[] firstNames = {
+            string[] maleFirstNames = {
                 "Ricardo", "Fernando", "Danilo", "Guilherme", "Carlos", "Samuel", "Igor","Marcos","Augusto","Manuel",
-                "Geraldo", "Gabriel", "Arthur", "Theo", "Davi", "Hugo", "Emanuel", "Lorenzo", "Benjamin", "Diogo",
+                "Geraldo", "Gabriel", "Arthur", "Theo", "Davi", "Hugo", "Emanuel", "Lorenzo", "Benjamin", "Diogo"
+             };
+
+            string[] femaleFirstNames = {
                 "Milena", "Laura", "Vanessa","Sophie", "Manuela", "Elisa", "Joana","Brenda", "Emanuelly", "Antonella",
                 "Sueli", "Isabel", "Aline", "Julia","Helena", "Isabelle", "Maria", "Sarah", "Brenda", "Isis"
              };
@@ -141,16 +143,22 @@ namespace WebApi.Controllers
                 "Teixeira", "Sales", "da Silva", "Campos","Moura"
             };
 
-            for (int i = 0; i < numberOfUsers; i++)
+            for (int i = 1; i <= 20; i++)
             {
+                bool isMale = i <= 10;
+
+                var firstName = isMale
+                    ? maleFirstNames[_random.Next(maleFirstNames.Length)]
+                    : femaleFirstNames[_random.Next(femaleFirstNames.Length)];
+
                 string name = string.Format("{0} {1} {2}",
-                    firstNames[_random.Next(firstNames.Length)],
+                    firstName,
                     middleNames[_random.Next(middleNames.Length)],
                     lastNames[_random.Next(lastNames.Length)]);
 
                 var newUser = new User()
                 {
-                    Image = string.Format("assets/img/users/{0}.jpg", _random.Next(25)),
+                    Image = string.Format("assets/img/users/{0}.jpg", i),
                     Name = name,
                     Description = RamdomDescription(),
                     Birthday = RamdomBirthday(),

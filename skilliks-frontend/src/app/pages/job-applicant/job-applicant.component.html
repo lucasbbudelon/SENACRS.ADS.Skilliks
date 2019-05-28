@@ -1,14 +1,11 @@
-<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+<div class="header bg-gradient-primary pb-8 pt-5 pt-md-8" *ngIf="jobApplicants">
 
 </div>
-<div class="container-fluid mt--7">
+<div class="container-fluid mt--7" *ngIf="jobApplicants">
   <!-- Table -->
   <div class="row">
     <div class="col">
       <div class="card shadow">
-        <div class="card-header border-0">
-          <h3 class="mb-0">Candidaturas</h3>
-        </div>
         <div class="table-responsive">
           <table class="table align-items-center table-flush">
             <thead class="thead-light">
@@ -52,7 +49,7 @@
                     <span class="mr-2">{{jobApplicant.ranking}}%</span>
                     <div>
                       <div class="progress">
-                        <div class="progress-bar bg-warning" role="progressbar"
+                        <div class="progress-bar bg-primary" role="progressbar"
                           [attr.aria-valuenow]="jobApplicant.ranking" aria-valuemin="0" aria-valuemax="100"
                           [style.width.%]="jobApplicant.ranking">
                         </div>
@@ -61,7 +58,7 @@
                   </div>
                 </td>
                 <td>
-                  <i *ngIf="jobApplicant.star" class="fas fa-star"></i>
+                  <i *ngIf="jobApplicant.star" class="fas fa-star text-primary"></i>
                 </td>
                 <td class="text-right">
                   <div ngbDropdown placement="bottom-right">
