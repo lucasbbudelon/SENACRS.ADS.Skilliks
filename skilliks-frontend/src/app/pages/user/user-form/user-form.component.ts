@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from '../user.model';
 import { ActivatedRoute } from '@angular/router';
+import { catchError, finalize, tap } from 'rxjs/operators';
+import { ApiFeedbackService } from 'src/app/components/api-feedback/api-feedback.service';
+import { User } from '../user.model';
 import { UserService } from '../user.service';
-import { tap, catchError } from 'rxjs/operators';
-import { empty } from 'rxjs';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-user-form',
@@ -12,28 +13,37 @@ import { empty } from 'rxjs';
 })
 export class UserFormComponent implements OnInit {
 
+  form: FormGroup;
+
+  public id: string;
   public user: User;
+  public editMode: boolean;
 
   constructor(
     private activatedRoute: ActivatedRoute,
+    private formBuilder: FormBuilder,
+    private apiFeedbackService: ApiFeedbackService,
     private userService: UserService
-  ) { }
-
-  ngOnInit() {
-    const id = this.activatedRoute.snapshot.paramMap.get('id');
-    this.loadUser(id);
+  ) {
+    this.form = this.formBuilder.group({
+      'name': ['', Validators.required],
+      'description': ['', Validators.required]
+    });
   }
 
-  private loadUser(id: string) {
+  ngOnInit() {
+    this.id = this.activatedRoute.snapshot.paramMap.get('id');
+    this.loadUser();
+  }
+
+  private loadUser() {
+    this.apiFeedbackService.showLoading();
     this.user = null;
-    this.userService.getById(id)
+    this.userService.getById(this.id)
       .pipe(
         tap(user => this.user = user),
-        catchError((error) => {
-          alert('Erro ao carregar usuário');
-          console.error(error);
-          return empty();
-        })
+        catchError((error) => this.apiFeedbackService.handlerError(error)),
+        finalize(() => this.apiFeedbackService.hideLoading())
       )
       .subscribe();
   }

@@ -1,10 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ClipboardModule } from 'ngx-clipboard';
+import { NgxMaskModule } from 'ngx-mask';
+import { AuthModule } from 'src/app/auth/auth.module';
 import { ApiFeedbackService } from '../../components/api-feedback/api-feedback.service';
 import { ComponentsModule } from '../../components/components.module';
 import { JobApplicantFormComponent } from '../../pages/job-applicant/job-applicant-form/job-applicant-form.component';
@@ -24,12 +26,15 @@ import { AdminLayoutRoutes } from './admin-layout.routing';
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule.forChild(AdminLayoutRoutes),
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
+    RouterModule.forChild(AdminLayoutRoutes),
+    NgxMaskModule.forRoot(),
     NgbModule,
     ClipboardModule,
-    ComponentsModule
+    ComponentsModule,
+    AuthModule
   ],
   declarations: [
     UserComponent,
