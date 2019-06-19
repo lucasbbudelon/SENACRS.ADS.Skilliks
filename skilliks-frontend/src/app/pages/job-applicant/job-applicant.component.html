@@ -1,0 +1,82 @@
+<div class="header bg-gradient-primary pb-8 pt-5 pt-md-8" *ngIf="jobApplicants">
+
+</div>
+<div class="container-fluid mt--7" *ngIf="jobApplicants">
+  <!-- Table -->
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="table-responsive">
+          <table class="table align-items-center table-flush">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col">Candidato</th>
+                <th scope="col">Pretenção Salarial</th>
+                <th scope="col">Vaga</th>
+                <th scope="col">Salário base</th>
+                <th scope="col">Nível</th>
+                <th scope="col">Match</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let jobApplicant of jobApplicants">
+                <td>
+                  <a routerLink="/usuario/{{jobApplicant.applicant.id}}">
+                    {{jobApplicant.applicant.name}}
+                  </a>
+                </td>
+                <td>
+                  {{jobApplicant.salaryClaim | currency}}
+                </td>
+                <td>
+                  <a routerLink="/vaga/{{jobApplicant.job.id}}">
+                    {{jobApplicant.job.name}}
+                  </a>
+                </td>
+                <td>
+                  {{jobApplicant.job.remuneration | currency}}
+                </td>
+                <td [ngSwitch]="jobApplicant.job.level">
+                  <span *ngSwitchCase="0">estagiário</span>
+                  <span *ngSwitchCase="1">júnior</span>
+                  <span *ngSwitchCase="2">pleno</span>
+                  <span *ngSwitchCase="3">sênior</span>
+                </td>
+                <td>
+                  <div class="d-flex align-items-center">
+                    <span class="mr-2">{{jobApplicant.ranking}}%</span>
+                    <div>
+                      <div class="progress">
+                        <div class="progress-bar bg-primary" role="progressbar"
+                          [attr.aria-valuenow]="jobApplicant.ranking" aria-valuemin="0" aria-valuemax="100"
+                          [style.width.%]="jobApplicant.ranking">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <i *ngIf="jobApplicant.star" class="fas fa-star text-primary"></i>
+                </td>
+                <td class="text-right">
+                  <div ngbDropdown placement="bottom-right">
+                    <a class="btn btn-sm btn-icon-only text-light" ngbDropdownToggle>
+                      <i class="fas fa-ellipsis-v"></i>
+                    </a>
+                    <div ngbDropdownMenu class=" dropdown-menu-right dropdown-menu-arrow">
+                      <a class="dropdown-item" routerLink="/candidatura/{{jobApplicant.id}}">Detalhes</a>
+                      <a class="dropdown-item" href="javascript:void(0)">Marcar entrevista</a>
+                      <a class="dropdown-item" href="javascript:void(0)">Rejeitar cadidatura</a>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

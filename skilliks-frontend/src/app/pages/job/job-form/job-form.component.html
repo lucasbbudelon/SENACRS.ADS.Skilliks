@@ -1,0 +1,53 @@
+<div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center">
+  <span class="mask bg-gradient-primary opacity-8"></span>
+</div>
+<div class="container-fluid mt--7" *ngIf="job">
+  <div class="row">
+    <div class="col-xl-12 order-xl-1">
+      <div class="card bg-secondary shadow">
+        <div class="card-header bg-white border-0">
+          <div class="row align-items-center">
+            <div class="col-8">
+              <h3 class="mb-0">Detalhes da Vaga</h3>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <h6 class="heading-small text-muted mb-4">Descrição</h6>
+          <div class="pl-lg-12">
+            <p>{{job.description}}</p>
+          </div>
+          <hr class="my-4" />
+          <h6 class="heading-small text-muted mb-4">Salário Base</h6>
+          <div class="pl-lg-12">
+            <p>{{job.remuneration | currency}}</p>
+          </div>
+          <hr class="my-4" />
+          <table class="table align-items-center table-flush">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col">Skill</th>
+                <th scope="col">Classificação</th>
+                <th scope="col">Peso</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let jobSkill of job.skills">
+                <td>
+                  {{jobSkill.skill.name}}
+                </td>
+                <td>
+                  <app-star-ranking [ranking]="jobSkill.ranking"></app-star-ranking>
+                </td>
+                <td>
+                  {{jobSkill.weight}}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

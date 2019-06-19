@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using Domain.Model;
-using Repository.Repositories;
+using Domain.Models;
+using Domain.Contracts.Services;
+using Domain.Contracts.Repositories;
+using Core.Services;
+using Data.Repositories;
 
 namespace WebApi.Controllers
 {
@@ -10,11 +13,17 @@ namespace WebApi.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private UserRepository _repository;
+        private readonly IUserService _userService;
+        private readonly IUserRepository _userRepository;
+        private readonly IUserSkillRepository _userSkillRepository;
+        private readonly ISkillRepository _skillRepository;
 
         public UserController()
         {
-            _repository = new UserRepository();
+            _skillRepository = new SkillRepository();
+            _userSkillRepository = new UserSkillRepository();
+            _userRepository = new UserRepository();
+            _userService = new UserService(_userRepository, _userSkillRepository, _skillRepository);
         }
 
         // GET: api/User
@@ -23,7 +32,7 @@ namespace WebApi.Controllers
         {
             try
             {
-                var result = _repository.GetAll();
+                var result = _userService.GetAll();
                 return Ok(result);
             }
             catch (Exception ex)
@@ -33,13 +42,17 @@ namespace WebApi.Controllers
         }
 
         // GET: api/User/5
-        [HttpGet("{id}", Name = "Get")]
+        [HttpGet("{id}")]
         public ActionResult<User> Get(long id)
         {
             try
             {
-                var result = _repository.Get(id);
-                return Ok(result);
+                var result = _userService.Get(id);
+
+                if (result == null)
+                    return NotFound();
+                else
+                    return Ok(result);
             }
             catch (Exception ex)
             {
@@ -53,7 +66,7 @@ namespace WebApi.Controllers
         {
             try
             {
-                _repository.Insert(user);
+                _userService.Insert(user);
                 return Ok(user);
             }
             catch (Exception ex)
@@ -68,7 +81,7 @@ namespace WebApi.Controllers
         {
             try
             {
-                _repository.Update(id, user);
+                _userService.Update(id, user);
                 return Ok();
             }
             catch (Exception ex)
@@ -83,7 +96,7 @@ namespace WebApi.Controllers
         {
             try
             {
-                _repository.Delete(id);
+                _userService.Delete(id);
                 return Ok();
             }
             catch (Exception ex)

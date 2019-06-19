@@ -1,0 +1,96 @@
+<div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center">
+  <span class="mask bg-gradient-primary opacity-8"></span>
+</div>
+<div class="container-fluid mt--7" *ngIf="jobApplicant">
+  <div class="row">
+    <div class="col-xl-4 order-xl-2 mb-5 mb-xl-0">
+      <div class="card shadow">
+        <div class="card-body pt-0 pt-mt-4">
+          <div class="row mt-4">
+            <div class="col d-flex justify-content-center">
+              <span class="match">{{jobApplicant.ranking}}%</span>
+            </div>
+          </div>
+          <div class="row mb-4">
+            <div class="col d-flex justify-content-center">
+              <span class="description">match</span>
+            </div>
+          </div>
+          <hr class="my-4" />
+          <div class="row">
+            <div class="col">
+              <h3>
+                <a routerLink="/vaga/{{jobApplicant.job.id}}"> Vaga </a>
+              </h3>
+              <ul>
+                <li><strong>Nome:</strong> {{jobApplicant.job.name}}</li>
+                <li><strong>Salário base:</strong> {{jobApplicant.job.remuneration | currency}}</li>
+              </ul>
+            </div>
+          </div>
+          <hr class="my-4" />
+          <div class="row">
+            <div class="col">
+              <h3>
+                <a routerLink="/usuario/{{jobApplicant.applicant.id}}"> Candidato </a>
+              </h3>
+              <ul>
+                <li><strong>Nome:</strong> {{jobApplicant.applicant.name}}</li>
+                <li><strong>Pretenção salarial:</strong> {{jobApplicant.salaryClaim | currency}}</li>
+                <li><strong>Salário atual:</strong> {{jobApplicant.applicant.currentWage | currency}}</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-8 order-xl-1">
+      <div class="card bg-secondary shadow">
+        <div class="card-header bg-white border-0">
+          <div class="row align-items-center">
+            <div class="col-8">
+              <h3 class="mb-0">Comparativo</h3>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <table class="table align-items-center table-flush">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col"></th>
+                <th scope="col">Vaga</th>
+                <th scope="col">Candidato</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="col">Remuneração</th>
+                <td>{{jobApplicant.job.remuneration | currency}} </td>
+                <td>{{jobApplicant.salaryClaim | currency}} </td>
+                <td>{{jobApplicant.job.remuneration - jobApplicant.salaryClaim | currency}} </td>
+              </tr>
+              <tr>
+                <th scope="col" colspan="3">Skills</th>
+              </tr>
+              <tr *ngFor="let jobSkill of jobApplicant.job.skills">
+                <td>
+                  {{jobSkill.skill.name}}
+                </td>
+                <td>
+                  <app-star-ranking [ranking]="jobSkill.ranking"></app-star-ranking>
+                </td>
+                <td>
+                  <app-star-ranking [ranking]="jobSkill.rankingApplicant"></app-star-ranking>
+                </td>
+                <td>
+                  <i *ngIf="jobSkill.rankingApplicant > jobSkill.ranking" class="fas fa-star mx-2 text-primary"></i>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
