@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ClipboardModule } from 'ngx-clipboard';
 import { NgxMaskModule } from 'ngx-mask';
-import { AuthModule } from 'src/app/auth/auth.module';
+import { AuthInterceptor } from '../../auth/auth.interceptor';
 import { ApiFeedbackService } from '../../components/api-feedback/api-feedback.service';
 import { ComponentsModule } from '../../components/components.module';
 import { JobApplicantFormComponent } from '../../pages/job-applicant/job-applicant-form/job-applicant-form.component';
@@ -33,8 +33,7 @@ import { AdminLayoutRoutes } from './admin-layout.routing';
     NgxMaskModule.forRoot(),
     NgbModule,
     ClipboardModule,
-    ComponentsModule,
-    AuthModule
+    ComponentsModule
   ],
   declarations: [
     UserComponent,
@@ -51,7 +50,8 @@ import { AdminLayoutRoutes } from './admin-layout.routing';
     UserService,
     JobApplicantService,
     JobService,
-    SkillService
+    SkillService,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ]
 })
 

@@ -14,5 +14,5 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'candidatura/:id', component: JobApplicantFormComponent },
     { path: 'vagas', component: JobComponent },
     { path: 'vaga/:id', component: JobFormComponent },
-    { path: 'skills', component: SkillComponent },
+    { path: 'skills', component: SkillComponent }
 ];

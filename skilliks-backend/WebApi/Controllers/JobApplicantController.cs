@@ -50,6 +50,11 @@ namespace WebApi.Controllers
         {
             try
             {
+                if (Request.Headers.Any(x => x.Key.Equals("user-logged-in")))
+                {
+                    var userLoggedIn = Request.Headers.FirstOrDefault(x => x.Key.Equals("user-logged-in")).Value;
+                }
+
                 var result = _jobApplicantService
                     .GetAll()
                     .OrderByDescending(x => x.Ranking);
