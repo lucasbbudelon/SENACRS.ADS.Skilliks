@@ -12,7 +12,8 @@ export const ROUTES: RouteInfo[] = [
   { path: '/usuarios', title: 'Usuários', icon: 'fa-users', class: 'text-primary' },
   { path: '/candidaturas', title: 'Candidaturas', icon: 'fa-chalkboard-teacher', class: 'text-primary' },
   { path: '/vagas', title: 'Vagas', icon: 'fa-user-tie', class: 'text-primary' },
-  { path: '/skills', title: 'Skills', icon: 'fa-laptop-code', class: 'text-primary' }
+  { path: '/skills', title: 'Skills', icon: 'fa-laptop-code', class: 'text-primary' },
+  { path: '/feedBack', title: 'FeedBack', icon: '', class: 'text-primary' }
 ];
 
 @Component({
