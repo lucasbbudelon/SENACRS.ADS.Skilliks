@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ClipboardModule } from 'ngx-clipboard';
 import { NgxMaskModule } from 'ngx-mask';
-import { AuthModule } from 'src/app/auth/auth.module';
+import { AuthInterceptor } from '../../auth/auth.interceptor';
 import { ApiFeedbackService } from '../../components/api-feedback/api-feedback.service';
 import { ComponentsModule } from '../../components/components.module';
 import { JobFeedBackFormComponent} from '../../pages/job-feedback/job-feedback-form/job-feedback-form.component';
@@ -36,8 +36,7 @@ import { JobFeedBackService } from 'src/app/pages/job-feedback/job-feedback.serv
     NgxMaskModule.forRoot(),
     NgbModule,
     ClipboardModule,
-    ComponentsModule,
-    AuthModule
+    ComponentsModule
   ],
   declarations: [
     UserComponent,
@@ -57,7 +56,8 @@ import { JobFeedBackService } from 'src/app/pages/job-feedback/job-feedback.serv
     JobFeedBackService,
     JobApplicantService,
     JobService,
-    SkillService
+    SkillService,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ]
 })
 
