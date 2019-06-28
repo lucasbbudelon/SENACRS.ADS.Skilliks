@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ClipboardModule } from 'ngx-clipboard';
 import { NgxMaskModule } from 'ngx-mask';
+import { LoginService } from 'src/app/pages/login/login.service';
 import { AuthInterceptor } from '../../auth/auth.interceptor';
 import { ApiFeedbackService } from '../../components/api-feedback/api-feedback.service';
 import { ComponentsModule } from '../../components/components.module';
@@ -51,6 +52,7 @@ import { AdminLayoutRoutes } from './admin-layout.routing';
     JobApplicantService,
     JobService,
     SkillService,
+    LoginService,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ]
 })

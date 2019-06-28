@@ -1,7 +1,9 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { User } from '../user/user.model';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { tap } from 'rxjs/operators';
+import { User } from '../user/user.model';
+import { LoginService } from './login.service';
 
 @Component({
   selector: 'app-login',
@@ -10,11 +12,13 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit, OnDestroy {
 
-  user: User;
-  form: FormGroup;
+  public user: User;
+  public form: FormGroup;
+  public invalidCredentials: boolean;
 
   constructor(
-    private router: Router
+    private router: Router,
+    private loginService: LoginService
   ) {
     this.form = new FormGroup({
       'login': new FormControl(null,
@@ -31,8 +35,14 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   submit() {
-    localStorage.setItem('user-logged-in', this.form.controls.login.value);
-    this.router.navigate(['/']);
+    this.loginService.login(this.form.controls.login.value, 'default')
+      .pipe(
+        tap((ok) => {
+          this.invalidCredentials = !ok;
+          if (ok) { this.router.navigate(['/']); }
+        })
+      )
+      .subscribe();
   }
 
   formIsInvalid() {
