@@ -87,6 +87,33 @@ namespace Data.Migration.Versions
                              Star           BOOLEAN
                           );");
 
+            sql.AppendLine(@"create table JobFeedBack
+                          (
+                             Id                 INTEGER PRIMARY KEY AUTOINCREMENT,
+                             ExclusionDate      DATETIME,
+                             DisabledDate       DATETIME,
+                             RegistryDate       DATETIME,
+                             IdJob              INTEGER,
+                             IdApplicant        INTEGER,
+                             IdUserTecnical     INTEGER,
+                             Technical          TEXT,
+                             Recruiter          TEXT
+                          );");
+
+            sql.AppendLine(@"create table JobFeedBackSkill
+                          (
+                             Id                     INTEGER PRIMARY KEY AUTOINCREMENT,
+                             ExclusionDate          DATETIME,
+                             DisabledDate           DATETIME,
+                             RegistryDate           DATETIME,
+                             IdJobFeedBack          INTEGER,
+                             IdSkill                INTEGER,
+                             jobSkillRanking        INTEGER,
+                             SelfEvaluation         INTEGER,
+                             TechnicalEvaluation    INTEGER,
+                             Comment                TEXT
+                          );");
+
             return sql.ToString();
         }
 
@@ -100,6 +127,8 @@ namespace Data.Migration.Versions
             sql.AppendLine(@"drop table Job;");
             sql.AppendLine(@"drop table JobSkill;");
             sql.AppendLine(@"drop table JobApplicant;");
+            sql.AppendLine(@"drop table JobFeedBack;");
+            sql.AppendLine(@"drop table JobFeedBackSkill;");
 
             return sql.ToString();
         }
