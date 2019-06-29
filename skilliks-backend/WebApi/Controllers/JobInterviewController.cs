@@ -1,20 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc;
-using Domain.Models;
-using Domain.Contracts.Services;
-using Domain.Contracts.Repositories;
+using System.Linq;
+using System.Threading.Tasks;
 using Core.Services;
 using Data.Repositories;
-using System.Linq;
+using Domain.Contracts.Repositories;
+using Domain.Contracts.Services;
+using Domain.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class JobFeedBackController : ControllerBase
+    public class JobInterviewController : ControllerBase
     {
-
         private readonly ISkillRepository _skillRepository;
 
         private readonly IUserService _userService;
@@ -29,9 +30,14 @@ namespace WebApi.Controllers
         private readonly IJobFeedBackService _jobFeedBackService;
 
         private readonly IJobFeedBackSkillRepository _jobFeedBackSkillRepository;
-        
 
-        public JobFeedBackController()
+        private readonly IJobApplicantRepository _jobApplicantRepository;
+        private readonly IJobApplicantService _jobApplicantService;
+
+        private readonly IJobInterviewRepository _jobInterviewRepository;
+        private readonly IJobInterviewService _jobInterviewService;
+
+        public JobInterviewController()
         {
             _skillRepository = new SkillRepository();
 
@@ -47,15 +53,21 @@ namespace WebApi.Controllers
             _jobFeedBackRepository = new JobFeedBackRepository();
             _jobFeedBackService = new JobFeedBackService(_jobFeedBackRepository, _jobFeedBackSkillRepository, _userService, _skillRepository, _jobService);
 
+            _jobApplicantRepository = new JobApplicantRepository();
+            _jobApplicantService = new JobApplicantService(_jobApplicantRepository, _userService, _jobService);
+
+            _jobInterviewRepository = new JobInterviewRepository();
+            _jobInterviewService = new JobInterviewService(_jobInterviewRepository, _jobFeedBackService, _jobFeedBackRepository, _jobApplicantService, _userService);
+
         }
 
-        // GET: api/JobFeedBack
+        // GET: api/JobInterview
         [HttpGet]
-        public ActionResult<IEnumerable<JobFeedBack>> Get()
+        public ActionResult<IEnumerable<JobInterview>> Get()
         {
             try
             {
-                var result = _jobFeedBackService.GetAll();
+                var result = _jobInterviewService.GetAll();
                 return Ok(result);
             }
             catch (Exception ex)
@@ -64,13 +76,13 @@ namespace WebApi.Controllers
             }
         }
 
-        // GET: api/JobFeedBack/5
+        // GET: api/JobInterview/5
         [HttpGet("{id}")]
-        public ActionResult<JobFeedBack> Get(long id)
+        public ActionResult<JobInterview> Get(long id)
         {
             try
             {
-                var result = _jobFeedBackService.Get(id);
+                var result = _jobInterviewService.Get(id);
 
                 if (result == null)
                     return NotFound();
@@ -83,13 +95,13 @@ namespace WebApi.Controllers
             }
         }
 
-        // POST: api/JobFeedBack
+        // POST: api/JobInterview
         [HttpPost]
-        public ActionResult Post([FromBody] JobFeedBack jobFeedBack)
+        public ActionResult Post([FromBody] JobInterview jobInterview)
         {
             try
             {
-                _jobFeedBackService.Insert(jobFeedBack);
+                _jobInterviewService.Insert(jobInterview);
                 return Ok();
             }
             catch (Exception ex)
@@ -98,13 +110,13 @@ namespace WebApi.Controllers
             }
         }
 
-        // PUT: api/JobFeedBack/5
+        // PUT: api/JobInterview/5
         [HttpPut("{id}")]
-        public ActionResult Put(long id, [FromBody] JobFeedBack jobFeedBack)
+        public ActionResult Put(long id, [FromBody] JobInterview jobInterview)
         {
             try
             {
-                _jobFeedBackService.Update(id, jobFeedBack);
+                _jobInterviewService.Update(id, jobInterview);
                 return Ok();
             }
             catch (Exception ex)
@@ -119,7 +131,7 @@ namespace WebApi.Controllers
         {
             try
             {
-                _jobFeedBackService.Delete(id);
+                _jobInterviewService.Delete(id);
                 return Ok();
             }
             catch (Exception ex)

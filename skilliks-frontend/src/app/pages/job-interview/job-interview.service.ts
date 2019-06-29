@@ -1,24 +1,24 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
-import { jobFeedBack } from './job-feedback.model';
+import { JobInterview } from './job-interview.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class JobFeedBackService {
+export class JobInterviewService {
 
   constructor(
     private httpClient: HttpClient
   ) { }
 
   getAll() {
-    const url = `${environment.api}/jobFeedBack`;
-    return this.httpClient.get<jobFeedBack[]>(url);
+    const url = `${environment.api}/jobInterview`;
+    return this.httpClient.get<JobInterview[]>(url);
   }
 
   getById(id: string) {
-    const url = `${environment.api}/jobFeedBack/${id}`;
-    return this.httpClient.get<jobFeedBack>(url);
+    const url = `${environment.api}/jobInterview/${id}`;
+    return this.httpClient.get<JobInterview>(url);
   }
 }

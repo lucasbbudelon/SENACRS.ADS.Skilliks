@@ -13,10 +13,10 @@ export class AuthInterceptor implements HttpInterceptor {
 
     intercept(req: HttpRequest<any>, next: HttpHandler) {
         const name = this.loginService.getLocalStorageKey();
-        const value = this.loginService.getUserLoggedIn();
+        const user = this.loginService.getUserLoggedIn();
         return next.handle(
             req.clone({
-                headers: req.headers.append(name, value)
+                headers: req.headers.append(name, user.email)
             })
         );
     }

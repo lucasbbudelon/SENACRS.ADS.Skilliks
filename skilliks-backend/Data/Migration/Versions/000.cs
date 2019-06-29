@@ -114,6 +114,19 @@ namespace Data.Migration.Versions
                              Comment                TEXT
                           );");
 
+            sql.AppendLine(@"create table JobInterview
+                          (
+                             Id                 INTEGER PRIMARY KEY AUTOINCREMENT,
+                             ExclusionDate      DATETIME,
+                             DisabledDate       DATETIME,
+                             RegistryDate       DATETIME,
+                             IdJobFeedBack      INTEGER,
+                             IdJobApplicant     INTEGER,
+                             IdUserTechnical    INTEGER,
+                             IdUserRecruiter    INTEGER,
+                             Date               DATETIME
+                          );");
+
             return sql.ToString();
         }
 
@@ -129,6 +142,7 @@ namespace Data.Migration.Versions
             sql.AppendLine(@"drop table JobApplicant;");
             sql.AppendLine(@"drop table JobFeedBack;");
             sql.AppendLine(@"drop table JobFeedBackSkill;");
+            sql.AppendLine(@"drop table JobInterview;");
 
             return sql.ToString();
         }

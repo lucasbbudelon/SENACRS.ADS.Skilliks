@@ -1,11 +1,9 @@
-<div class="header pb-8 pt-5 pt-lg-8 d-flex align-itens0center">
-  <span class="mask bg-gradient-primary opacity-8"></span>
-</div>
-<div class="container-fluid mt--7" *ngIf="jobFeedBack">
-  <div class="row">
+<div class="header pb-8 pt-5 pt-lg-8"></div>
+<div class="container-fluid mt--7" *ngIf="jobInterview">
+  <div class="row" *ngIf="jobInterview.jobInterview">
     <div class="col-xl-12 order-xl-1">
-      <div class="card bg-secondary shadow">
-        <div class="card-header bg-white border-0">
+      <div class="shadow">
+        <div class="card-header border-0">
           <div class="row align-items-center">
             <div class="col-8">
               <h3 class="mb-0">Detalhes do FeedBack</h3>
@@ -15,12 +13,12 @@
         <div class="card-body">
           <h6 class="heading-small text-muted mb-4">FeedBack do RH</h6>
           <div class="pl-lg-12">
-            <p>{{jobFeedBack.recruiter}}</p>
+            <p>{{jobInterview.jobFeedBack.recruiter}}</p>
           </div>
           <hr class="my-4" />
           <h6 class="heading-small text-muted mb-4">FeedBack Tecnico</h6>
           <div class="pl-lg-12">
-            <p>{{jobFeedBack.technical}}</p>
+            <p>{{jobInterview.jobFeedBack.technical}}</p>
           </div>
           <hr class="my-4" />
           <table class="table align-items-center table-flush">
@@ -34,23 +32,23 @@
               </tr>
             </thead>
             <tbody>
-             <tr *ngFor="let jobFeedBackSkill of jobFeedBack.skills">
+              <tr *ngFor="let jobFeedBackSkill of jobInterview.jobFeedBack.skills">
                 <td>
                   {{jobFeedBackSkill.skill.name}}
                 </td>
                 <td>
                   <app-star-ranking [ranking]="jobFeedBackSkill.jobSkillRanking"></app-star-ranking>
-                  </td>
-                  <td>
-                    <app-star-ranking [ranking]="jobFeedBackSkill.selfEvaluation"></app-star-ranking>
-                  </td>
-                  <td>
-                    <app-star-ranking [ranking]="jobFeedBackSkill.technicalEvaluation"></app-star-ranking>
-                  </td>
-                  <td>
-                    <p>{{jobFeedBackSkill.comment}}</p>
-                  </td>
-                </tr>
+                </td>
+                <td>
+                  <app-star-ranking [ranking]="jobFeedBackSkill.selfEvaluation"></app-star-ranking>
+                </td>
+                <td>
+                  <app-star-ranking [ranking]="jobFeedBackSkill.technicalEvaluation"></app-star-ranking>
+                </td>
+                <td>
+                  <p>{{jobFeedBackSkill.comment}}</p>
+                </td>
+              </tr>
             </tbody>
           </table>
         </div>

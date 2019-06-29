@@ -1,6 +1,5 @@
 import { Routes } from '@angular/router';
-import { JobFeedBackFormComponent} from '../../pages/job-feedback/job-feedback-form/job-feedback-form.component';
-import { JobFeedBackComponent} from '../../pages/job-feedback/job-feedback.component';
+import { JobInterviewComponent } from 'src/app/pages/job-interview/job-interview.component';
 import { JobApplicantFormComponent } from '../../pages/job-applicant/job-applicant-form/job-applicant-form.component';
 import { JobApplicantComponent } from '../../pages/job-applicant/job-applicant.component';
 import { JobFormComponent } from '../../pages/job/job-form/job-form.component';
@@ -8,8 +7,7 @@ import { JobComponent } from '../../pages/job/job.component';
 import { SkillComponent } from '../../pages/skill/skill.component';
 import { UserFormComponent } from '../../pages/user/user-form/user-form.component';
 import { UserComponent } from '../../pages/user/user.component';
-
-
+import { JobInterviewFormComponent } from 'src/app/pages/job-interview/job-interview-form/job-interview-form.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'usuarios', component: UserComponent },
@@ -19,6 +17,6 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'vagas', component: JobComponent },
     { path: 'vaga/:id', component: JobFormComponent },
     { path: 'skills', component: SkillComponent },
-    { path: 'feedBack', component: JobFeedBackComponent },
-    { path: 'feedBack/:id', component: JobFeedBackFormComponent },
+    { path: 'entrevistas', component: JobInterviewComponent },
+    { path: 'entrevista/:id', component: JobInterviewFormComponent },
 ];

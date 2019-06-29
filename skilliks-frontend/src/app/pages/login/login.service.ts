@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { map, catchError, tap } from 'rxjs/operators';
 import { Observable, empty, of } from 'rxjs';
 import { pipe } from '@angular/core/src/render3';
+import { User } from '../user/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -19,18 +20,18 @@ export class LoginService {
   ) { }
 
 
-  login(username: string, password: string) {
+  login(email: string) {
 
     localStorage.removeItem(this.LOCAL_STOREGE_KEY);
 
-    const url = `${environment.api}/token?username=${username}&password=${password}`;
-    return this.httpClient.get<string>(url)
+    const url = `${environment.api}/authentication/${email}`;
+    return this.httpClient.get<User>(url)
       .pipe(
-        catchError((response) => {
-          const ok = response.status === 200;
-          if (ok) { localStorage.setItem(this.LOCAL_STOREGE_KEY, response); }
-          return of(ok);
-        })
+        tap((user) => {
+          localStorage.setItem(this.LOCAL_STOREGE_KEY, JSON.stringify(user));
+          return of(true);
+        }),
+        catchError(() => of(false))
       );
   }
 
@@ -39,7 +40,7 @@ export class LoginService {
     this.router.navigate(['/login']);
   }
 
-  hasUserLoggedIn() {
+  check() {
     const hasUserLoggedIn = this.getUserLoggedIn() !== null;
 
     if (!hasUserLoggedIn) {
@@ -49,8 +50,9 @@ export class LoginService {
     return hasUserLoggedIn;
   }
 
-  getUserLoggedIn() {
-    return localStorage.getItem(this.LOCAL_STOREGE_KEY);
+  getUserLoggedIn(): User {
+    const user = localStorage.getItem(this.LOCAL_STOREGE_KEY);
+    return JSON.parse(user);
   }
 
   getLocalStorageKey() {

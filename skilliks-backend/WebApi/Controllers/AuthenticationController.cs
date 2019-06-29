@@ -10,19 +10,20 @@ using Domain.Contracts.Repositories;
 using Data.Repositories;
 using Domain.Contracts.Services;
 using Core.Services;
+using Domain.Models;
 
 namespace WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TokenController : ControllerBase
+    public class AuthenticationController : ControllerBase
     {
         private readonly IUserService _userService;
         private readonly IUserRepository _userRepository;
         private readonly IUserSkillRepository _userSkillRepository;
         private readonly ISkillRepository _skillRepository;
 
-        public TokenController()
+        public AuthenticationController()
         {
             _skillRepository = new SkillRepository();
             _userSkillRepository = new UserSkillRepository();
@@ -30,44 +31,26 @@ namespace WebApi.Controllers
             _userService = new UserService(_userRepository, _userSkillRepository, _skillRepository);
         }
 
-        // GET: api/Token
-        [HttpGet]
-        public ActionResult<string> Get(string username, string password)
+        // GET: api/authentication/user@gmail.com
+        [HttpGet("{email}")]
+        public ActionResult<User> Get(string email)
         {
             try
             {
-                var hasUser = _userService.GetAll().Any(x => x.Email.Equals(username));
+                var user = _userService.GetAll().FirstOrDefault(x => x.Email.Equals(email));
 
-                if (hasUser)
+                if (user == null)
                 {
-                    var token = GetMD5(username, password);
-                    return Ok(token);
+                    return Unauthorized();                   
                 }
                 else
                 {
-                    return Unauthorized();
+                    return Ok(user);
                 }
             }
             catch (Exception ex)
             {
                 return UnprocessableEntity(ex);
-            }
-        }
-
-        public string GetMD5(string username, string password)
-        {
-            using (MD5 md5Hash = MD5.Create())
-            {
-                byte[] data = md5Hash.ComputeHash(Encoding.UTF8.GetBytes(username + password));
-
-                StringBuilder sBuilder = new StringBuilder();
-
-                for (int i = 0; i < data.Length; i++)
-                {
-                    sBuilder.Append(data[i].ToString("x2"));
-                }
-
-                return sBuilder.ToString();
             }
         }
     }

@@ -1,8 +1,8 @@
 import { Location } from '@angular/common';
-import { Component, ElementRef, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { ROUTES } from '../sidebar/sidebar.component';
+import { Component, OnInit } from '@angular/core';
 import { LoginService } from 'src/app/pages/login/login.service';
+import { ROUTES } from '../sidebar/sidebar.component';
+import { User } from 'src/app/pages/user/user.model';
 
 @Component({
   selector: 'app-navbar',
@@ -10,21 +10,25 @@ import { LoginService } from 'src/app/pages/login/login.service';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
+
   public focus;
   public listTitles: any[];
   public location: Location;
+
+  public userLoggedIn: User;
+
   constructor(
     location: Location,
-    private element: ElementRef,
-    private router: Router,
     private loginService: LoginService
   ) {
     this.location = location;
   }
 
   ngOnInit() {
+    this.userLoggedIn = this.loginService.getUserLoggedIn();
     this.listTitles = ROUTES.filter(listTitle => listTitle);
   }
+
   getTitle() {
     let titlee = this.location.prepareExternalUrl(this.location.path());
     if (titlee.charAt(0) === '#') {

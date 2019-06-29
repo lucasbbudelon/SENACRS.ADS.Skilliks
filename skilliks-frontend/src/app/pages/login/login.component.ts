@@ -30,16 +30,18 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+
   }
+
   ngOnDestroy() {
   }
 
   submit() {
-    this.loginService.login(this.form.controls.login.value, 'default')
+    this.loginService.login(this.form.controls.login.value)
       .pipe(
         tap((ok) => {
           this.invalidCredentials = !ok;
-          if (ok) { this.router.navigate(['/']); }
+          if (ok) { this.redirectToDefaultPage(); }
         })
       )
       .subscribe();
@@ -47,5 +49,9 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   formIsInvalid() {
     return this.form.status === 'INVALID';
+  }
+
+  private redirectToDefaultPage() {
+    this.router.navigate(['/']);
   }
 }

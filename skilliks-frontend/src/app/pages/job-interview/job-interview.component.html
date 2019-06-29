@@ -1,0 +1,70 @@
+<div class="header pb-5 pt-5 pt-md-8">
+
+</div>
+<div class="container-fluid mt--7" *ngIf="jobInterviews">
+  <div class="row">
+    <div class="col">
+      <div class="table-responsive">
+        <table class="table align-items-center table-flush">
+          <thead class="thead-light">
+            <tr>
+              <th scope="col">Vaga</th>
+              <th scope="col">Recrutador</th>
+              <th scope="col">Técnico</th>
+              <th scope="col">Candidato</th>
+              <th scope="col">Match</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let jobInterview of jobInterviews">
+              <td>
+                <a routerLink="/vaga/{{jobInterview.jobApplicant.job.id}}">
+                  {{jobInterview.jobApplicant.job.name}}
+                </a>
+              </td>
+              <td>
+                <a routerLink="/usuario/{{jobInterview.userRecruiter.id}}">
+                  {{jobInterview.userRecruiter.name}}
+                </a>
+              </td>
+              <td>
+                <a routerLink="/usuario/{{jobInterview.userTechnical.id}}">
+                  {{jobInterview.userTechnical.name}}
+                </a>
+              </td>
+              <td>
+                <a routerLink="/usuario/{{jobInterview.jobApplicant.applicant.id}}">
+                  {{jobInterview.jobApplicant.applicant.name}}
+                </a>
+              </td>
+              <td>
+                <div class="d-flex align-items-center">
+                  <span class="mr-2">{{jobInterview.jobApplicant.ranking}}%</span>
+                  <div>
+                    <div class="progress">
+                      <div class="progress-bar bg-primary" role="progressbar"
+                        [attr.aria-valuenow]="jobInterview.jobApplicant.ranking" aria-valuemin="0" aria-valuemax="100"
+                        [style.width.%]="jobInterview.jobApplicant.ranking">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+              <td class="text-right">
+                <div ngbDropdown placement="bottom-right">
+                  <a class="btn btn-sm btn-icon-only text-light" ngbDropdownToggle>
+                    <i class="fas fa-ellipsis-v"></i>
+                  </a>
+                  <div ngbDropdownMenu class=" dropdown-menu-right dropdown-menu-arrow">
+                    <a class="dropdown-item" routerLink="/entrevista/{{jobInterview.id}}">Detalhes</a>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

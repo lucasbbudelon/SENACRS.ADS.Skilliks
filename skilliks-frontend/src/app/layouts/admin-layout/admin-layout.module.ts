@@ -6,12 +6,13 @@ import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ClipboardModule } from 'ngx-clipboard';
 import { NgxMaskModule } from 'ngx-mask';
+import { JobInterviewFormComponent } from 'src/app/pages/job-interview/job-interview-form/job-interview-form.component';
+import { JobInterviewComponent } from 'src/app/pages/job-interview/job-interview.component';
+import { JobInterviewService } from 'src/app/pages/job-interview/job-interview.service';
 import { LoginService } from 'src/app/pages/login/login.service';
 import { AuthInterceptor } from '../../auth/auth.interceptor';
 import { ApiFeedbackService } from '../../components/api-feedback/api-feedback.service';
 import { ComponentsModule } from '../../components/components.module';
-import { JobFeedBackFormComponent} from '../../pages/job-feedback/job-feedback-form/job-feedback-form.component';
-import { JobFeedBackComponent} from '../../pages/job-feedback/job-feedback.component';
 import { JobApplicantFormComponent } from '../../pages/job-applicant/job-applicant-form/job-applicant-form.component';
 import { JobApplicantComponent } from '../../pages/job-applicant/job-applicant.component';
 import { JobApplicantService } from '../../pages/job-applicant/job-applicant.service';
@@ -21,11 +22,9 @@ import { JobService } from '../../pages/job/job.service';
 import { SkillComponent } from '../../pages/skill/skill.component';
 import { SkillService } from '../../pages/skill/skill.service';
 import { UserFormComponent } from '../../pages/user/user-form/user-form.component';
-import { UserHeaderComponent } from '../../pages/user/user-header/user-header.component';
 import { UserComponent } from '../../pages/user/user.component';
 import { UserService } from '../../pages/user/user.service';
 import { AdminLayoutRoutes } from './admin-layout.routing';
-import { JobFeedBackService } from 'src/app/pages/job-feedback/job-feedback.service';
 
 @NgModule({
   imports: [
@@ -41,20 +40,19 @@ import { JobFeedBackService } from 'src/app/pages/job-feedback/job-feedback.serv
   ],
   declarations: [
     UserComponent,
-    UserHeaderComponent,
     UserFormComponent,
-    JobFeedBackComponent,
-    JobFeedBackFormComponent,
-    JobApplicantComponent,
-    JobApplicantFormComponent,
     JobComponent,
     JobFormComponent,
+    JobApplicantComponent,
+    JobApplicantFormComponent,
+    JobInterviewComponent,
+    JobInterviewFormComponent,
     SkillComponent
   ],
   providers: [
     ApiFeedbackService,
     UserService,
-    JobFeedBackService,
+    JobInterviewService,
     JobApplicantService,
     JobService,
     SkillService,
