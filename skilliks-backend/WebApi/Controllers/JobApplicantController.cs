@@ -57,7 +57,7 @@ namespace WebApi.Controllers
 
                 var result = _jobApplicantService
                     .GetAll()
-                    .OrderByDescending(x => x.Ranking);
+                    .OrderByDescending(x => x.Job.Id);
 
                 return Ok(result);
             }

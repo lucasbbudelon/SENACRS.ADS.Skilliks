@@ -83,8 +83,7 @@ namespace Data.Migration.Versions
                              RegistryDate   DATETIME,
                              IdJob          INTEGER,
                              IdApplicant    INTEGER,
-                             SalaryClaim    DECIMAL,
-                             Star           BOOLEAN
+                             SalaryClaim    DECIMAL
                           );");
 
             sql.AppendLine(@"create table JobFeedBack

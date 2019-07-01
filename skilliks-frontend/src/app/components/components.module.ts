@@ -5,6 +5,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ApiFeedbackComponent } from './api-feedback/api-feedback.component';
 import { ApiFeedbackService } from './api-feedback/api-feedback.service';
 import { FooterComponent } from './footer/footer.component';
+import { JobLevelComponent } from './job-level/job-level.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { StarRankingComponent } from './star-ranking/star-ranking.component';
@@ -20,14 +21,16 @@ import { StarRankingComponent } from './star-ranking/star-ranking.component';
     NavbarComponent,
     SidebarComponent,
     ApiFeedbackComponent,
-    StarRankingComponent
+    StarRankingComponent,
+    JobLevelComponent
   ],
   exports: [
     FooterComponent,
     NavbarComponent,
     SidebarComponent,
     ApiFeedbackComponent,
-    StarRankingComponent
+    StarRankingComponent,
+    JobLevelComponent
   ],
   providers: [
     ApiFeedbackService

@@ -39,7 +39,7 @@ export class NavbarComponent implements OnInit {
         return this.listTitles[item].title;
       }
     }
-    return '#';
+    return window.location.pathname.substring(1).replace('/', ' # ');
   }
 
   logout() {

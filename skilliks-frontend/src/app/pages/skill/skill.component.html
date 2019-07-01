@@ -1,22 +1,30 @@
-<div class="header pb-5 pt-5 pt-md-8"></div>
-<div class="container-fluid content-page-defaut" *ngIf="skills">
+<div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center">
+  <span class="mask bg-dark"></span>
+</div>
+<div class="container-fluid mt--9 pb-5" *ngIf="skills">
   <div class="row">
     <div class="col">
-      <div class="table-responsive">
-        <table class="table align-items-center table-flush">
-          <thead class="thead-light">
-            <tr>
-              <th scope="col">Nome</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let skill of skills">
-              <th scope="row">
-                {{skill.name}}
-              </th>
-            </tr>
-          </tbody>
-        </table>
+      <div class="card shadow">
+        <div class="table-responsive">
+          <table class="table align-items-center table-flush">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Nome</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let skill of skills">
+                <th scope="row">
+                  {{skill.id}}
+                </th>
+                <th>
+                  {{skill.name}}
+                </th>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>

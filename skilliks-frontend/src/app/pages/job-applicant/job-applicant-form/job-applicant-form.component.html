@@ -1,7 +1,7 @@
 <div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center">
-  <span class="mask bg-gradient-primary opacity-8"></span>
+  <span class="mask bg-dark"></span>
 </div>
-<div class="container-fluid mt--7" *ngIf="jobApplicant">
+<div class="container-fluid mt--9 pb-5" *ngIf="jobApplicant">
   <div class="row">
     <div class="col-xl-4 order-xl-2 mb-5 mb-xl-0">
       <div class="card shadow">
@@ -20,11 +20,12 @@
           <div class="row">
             <div class="col">
               <h3>
-                <a routerLink="/vaga/{{jobApplicant.job.id}}"> Vaga </a>
+                <a routerLink="/usuario/{{jobApplicant.applicant.id}}"> Candidato </a>
               </h3>
               <ul>
-                <li><strong>Nome:</strong> {{jobApplicant.job.name}}</li>
-                <li><strong>Salário base:</strong> {{jobApplicant.job.remuneration | currency}}</li>
+                <li><strong>Nome:</strong> {{jobApplicant.applicant.name}}</li>
+                <li><strong>Pretensão salarial:</strong> {{jobApplicant.salaryClaim | currency}}</li>
+                <li><strong>Salário atual:</strong> {{jobApplicant.applicant.currentWage | currency}}</li>
               </ul>
             </div>
           </div>
@@ -32,12 +33,11 @@
           <div class="row">
             <div class="col">
               <h3>
-                <a routerLink="/usuario/{{jobApplicant.applicant.id}}"> Candidato </a>
+                <a routerLink="/vaga/{{jobApplicant.job.id}}"> Vaga </a>
               </h3>
               <ul>
-                <li><strong>Nome:</strong> {{jobApplicant.applicant.name}}</li>
-                <li><strong>Pretenção salarial:</strong> {{jobApplicant.salaryClaim | currency}}</li>
-                <li><strong>Salário atual:</strong> {{jobApplicant.applicant.currentWage | currency}}</li>
+                <li><strong>Nome:</strong> {{jobApplicant.job.name}}</li>
+                <li><strong>Descrição:</strong> {{jobApplicant.job.description}}</li>
               </ul>
             </div>
           </div>

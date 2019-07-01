@@ -1,12 +1,14 @@
-<div class="header pb-8 pt-5 pt-lg-8"></div>
-<div class="container-fluid mt--7" *ngIf="jobInterview">
-  <div class="row" *ngIf="jobInterview.jobInterview">
+<div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center">
+  <span class="mask bg-dark"></span>
+</div>
+<div class="container-fluid mt--9 pb-5" *ngIf="jobInterview.jobFeedBack">
+  <div class="row">
     <div class="col-xl-12 order-xl-1">
-      <div class="shadow">
+      <div class="card bg-secondary shadow">
         <div class="card-header border-0">
           <div class="row align-items-center">
             <div class="col-8">
-              <h3 class="mb-0">Detalhes do FeedBack</h3>
+              <h3 class="mb-0">Diário da Entrevista</h3>
             </div>
           </div>
         </div>
