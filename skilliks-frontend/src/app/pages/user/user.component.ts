@@ -11,6 +11,7 @@ import { UserService } from './user.service';
 })
 export class UserComponent implements OnInit {
 
+  private list: User[];
   public users: User[];
 
   constructor(
@@ -22,11 +23,19 @@ export class UserComponent implements OnInit {
     this.loadList();
   }
 
+  changeSearch(value: string) {
+    const valueLowerCase = value.toLocaleLowerCase();
+    this.users = this.list.filter(x =>
+      x.name.toLocaleLowerCase().indexOf(valueLowerCase) !== -1 ||
+      x.email.toLocaleLowerCase().indexOf(valueLowerCase) !== -1
+    );
+  }
+
   private loadList() {
     this.apiFeedbackService.showLoading();
     this.userService.getAll()
       .pipe(
-        tap((users) => this.users = users),
+        tap(users => this.list = this.users = users),
         catchError((error) => this.apiFeedbackService.handlerError(error)),
         finalize(() => this.apiFeedbackService.hideLoading())
       )

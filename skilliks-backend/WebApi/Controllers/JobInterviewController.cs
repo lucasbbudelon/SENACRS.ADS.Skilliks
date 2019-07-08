@@ -16,49 +16,13 @@ namespace WebApi.Controllers
     [ApiController]
     public class JobInterviewController : ControllerBase
     {
-        private readonly ISkillRepository _skillRepository;
-
-        private readonly IUserService _userService;
-        private readonly IUserRepository _userRepository;
-        private readonly IUserSkillRepository _userSkillRepository;
-
-        private readonly IJobService _jobService;
-        private readonly IJobRepository _jobRepository;
-        private readonly IJobSkillRepository _jobSkillRepository;
-
-        private readonly IJobFeedBackRepository _jobFeedBackRepository;
-        private readonly IJobFeedBackService _jobFeedBackService;
-
-        private readonly IJobFeedBackSkillRepository _jobFeedBackSkillRepository;
-
-        private readonly IJobApplicantRepository _jobApplicantRepository;
-        private readonly IJobApplicantService _jobApplicantService;
-
-        private readonly IJobInterviewRepository _jobInterviewRepository;
         private readonly IJobInterviewService _jobInterviewService;
+        private readonly IUserService _userService;
 
-        public JobInterviewController()
+        public JobInterviewController(IJobInterviewService jobInterviewService, IUserService userService)
         {
-            _skillRepository = new SkillRepository();
-
-            _userSkillRepository = new UserSkillRepository();
-            _userRepository = new UserRepository();
-            _userService = new UserService(_userRepository, _userSkillRepository, _skillRepository);
-
-            _jobSkillRepository = new JobSkillRepository();
-            _jobRepository = new JobRepository();
-            _jobService = new JobService(_jobRepository, _jobSkillRepository, _skillRepository);
-
-            _jobFeedBackSkillRepository = new JobFeedBackSkillRepository();
-            _jobFeedBackRepository = new JobFeedBackRepository();
-            _jobFeedBackService = new JobFeedBackService(_jobFeedBackRepository, _jobFeedBackSkillRepository, _userService, _skillRepository, _jobService);
-
-            _jobApplicantRepository = new JobApplicantRepository();
-            _jobApplicantService = new JobApplicantService(_jobApplicantRepository, _userService, _jobService);
-
-            _jobInterviewRepository = new JobInterviewRepository();
-            _jobInterviewService = new JobInterviewService(_jobInterviewRepository, _jobFeedBackService, _jobFeedBackRepository, _jobApplicantService, _userService);
-
+            _jobInterviewService = jobInterviewService;
+            _userService = userService;
         }
 
         // GET: api/JobInterview
@@ -67,7 +31,9 @@ namespace WebApi.Controllers
         {
             try
             {
-                var result = _jobInterviewService.GetAll();
+                var authentication = new Authentication(Request, _userService);
+
+                var result = _jobInterviewService.GetAll(authentication.User);
                 return Ok(result);
             }
             catch (Exception ex)

@@ -1,10 +1,13 @@
 <div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center">
   <span class="mask bg-dark"></span>
 </div>
-<div class="container-fluid mt--7 pb-5" *ngIf="jobInterviews">
+<div class="container-fluid mt--9 pb-5" *ngIf="jobInterviews">
   <div class="row">
     <div class="col">
       <div class="card shadow">
+        <div class="card-header border-0">
+          <h3 class="mb-0">Lista de Entrevistas</h3>
+        </div>
         <div class="table-responsive">
           <table class="table align-items-center table-flush">
             <thead class="thead-light">
@@ -56,6 +59,7 @@
             </tbody>
           </table>
         </div>
+        <app-empty-list *ngIf="!jobInterviews.length"></app-empty-list>
       </div>
     </div>
   </div>

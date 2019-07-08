@@ -19,16 +19,10 @@ namespace WebApi.Controllers
     public class AuthenticationController : ControllerBase
     {
         private readonly IUserService _userService;
-        private readonly IUserRepository _userRepository;
-        private readonly IUserSkillRepository _userSkillRepository;
-        private readonly ISkillRepository _skillRepository;
 
-        public AuthenticationController()
+        public AuthenticationController(IUserService userService)
         {
-            _skillRepository = new SkillRepository();
-            _userSkillRepository = new UserSkillRepository();
-            _userRepository = new UserRepository();
-            _userService = new UserService(_userRepository, _userSkillRepository, _skillRepository);
+            _userService = userService;
         }
 
         // GET: api/authentication/user@gmail.com
@@ -41,7 +35,7 @@ namespace WebApi.Controllers
 
                 if (user == null)
                 {
-                    return Unauthorized();                   
+                    return Unauthorized();
                 }
                 else
                 {

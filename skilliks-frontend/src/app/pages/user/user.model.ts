@@ -2,6 +2,7 @@ export interface User {
     isEnable: boolean;
 
     image: string;
+    background: string;
     name: string;
     description: string;
     age: number;
@@ -13,9 +14,9 @@ export interface User {
     currentPosition: string;
     currentCompany: string;
     currentWage: number;
-    evaluations: number;
-    interviews: number;
-    applications: number;
+    jobApplications: number;
+    jobApplicationsApproved: number;
+    jobInterviews: number;
     skills: any[];
 }
 

@@ -52,6 +52,7 @@ export class LoginService {
 
   getUserLoggedIn(): User {
     const user = localStorage.getItem(this.LOCAL_STOREGE_KEY);
+    if (!user) { return null; }
     return JSON.parse(user);
   }
 

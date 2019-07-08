@@ -10,7 +10,6 @@ namespace Core.Services
     public class JobInterviewService : IJobInterviewService
     {
         private readonly IJobInterviewRepository _repository;
-
         public readonly IJobFeedBackService _jobFeedBackService;
         public readonly IJobFeedBackRepository _jobFeedBackRepository;
         public readonly IJobApplicantService _jobApplicantService;
@@ -65,6 +64,15 @@ namespace Core.Services
             }
 
             return jobInterviews;
+        }
+
+        public List<JobInterview> GetAll(User user)
+        {
+            var list = GetAll();
+
+            return user.IsTechnical
+                ? list.Where(x => x.IdUserTechnical == user.Id || x.IdJobApplicant == user.Id).ToList()
+                : list;
         }
 
         public JobInterview Insert(JobInterview user)

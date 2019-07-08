@@ -13,35 +13,14 @@ namespace WebApi.Controllers
     [Route("api/[controller]")]
     [ApiController]
     public class JobApplicantController : ControllerBase
-
     {
-        private readonly ISkillRepository _skillRepository;
-
         private readonly IUserService _userService;
-        private readonly IUserRepository _userRepository;
-        private readonly IUserSkillRepository _userSkillRepository;
-
-        private readonly IJobService _jobService;
-        private readonly IJobRepository _jobRepository;
-        private readonly IJobSkillRepository _jobSkillRepository;
-
-        private readonly IJobApplicantRepository _jobApplicantRepository;
         private readonly IJobApplicantService _jobApplicantService;
 
-        public JobApplicantController()
+        public JobApplicantController(IJobApplicantService jobApplicantService, IUserService userService)
         {
-            _skillRepository = new SkillRepository();
-
-            _userSkillRepository = new UserSkillRepository();
-            _userRepository = new UserRepository();
-            _userService = new UserService(_userRepository, _userSkillRepository, _skillRepository);
-
-            _jobSkillRepository = new JobSkillRepository();
-            _jobRepository = new JobRepository();
-            _jobService = new JobService(_jobRepository, _jobSkillRepository, _skillRepository);
-
-            _jobApplicantRepository = new JobApplicantRepository();
-            _jobApplicantService = new JobApplicantService(_jobApplicantRepository, _userService, _jobService);
+            _jobApplicantService = jobApplicantService;
+            _userService = userService;
         }
 
         // GET: api/JobApplicant
@@ -50,13 +29,10 @@ namespace WebApi.Controllers
         {
             try
             {
-                if (Request.Headers.Any(x => x.Key.Equals("user-logged-in")))
-                {
-                    var userLoggedIn = Request.Headers.FirstOrDefault(x => x.Key.Equals("user-logged-in")).Value;
-                }
+                var authentication = new Authentication(Request, _userService);
 
                 var result = _jobApplicantService
-                    .GetAll()
+                    .GetAll(authentication.User)
                     .OrderByDescending(x => x.Job.Id);
 
                 return Ok(result);

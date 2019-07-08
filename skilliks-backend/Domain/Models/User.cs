@@ -10,7 +10,17 @@ namespace Domain.Models
     public class User : Entity, IEntity
     {
         [Category(EntityPropertyCategory.Model)]
+        public long IdTeam { get; set; }
+
+        [Category(EntityPropertyCategory.Relacional)]
+        public Team Team { get; set; }
+
+
+        [Category(EntityPropertyCategory.Model)]
         public string Image { get; set; }
+
+        [Category(EntityPropertyCategory.Model)]
+        public string Background { get; set; }
 
         [Category(EntityPropertyCategory.Model)]
         public string Name { get; set; }
@@ -59,13 +69,13 @@ namespace Domain.Models
         }
 
         [Category(EntityPropertyCategory.LoadRunTime)]
-        public int Evaluations { get; set; }
+        public int JobApplications { get; set; }
 
         [Category(EntityPropertyCategory.LoadRunTime)]
-        public int Interviews { get; set; }
+        public int JobInterviews { get; set; }
 
         [Category(EntityPropertyCategory.LoadRunTime)]
-        public int Applications { get; set; }
+        public int JobApplicationsApproved { get; set; }
 
         [Category(EntityPropertyCategory.LoadRunTime)]
         public bool IsEnable

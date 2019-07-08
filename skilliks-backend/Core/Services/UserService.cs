@@ -10,17 +10,23 @@ namespace Core.Services
     public class UserService : IUserService
     {
         private readonly IUserRepository _repository;
-        private readonly IUserSkillRepository _userSkillRepository;
         private readonly ISkillRepository _skillRepository;
+        private readonly IUserSkillRepository _userSkillRepository;
+        private readonly IJobApplicantRepository _jobApplicantRepository;
+        private readonly IJobInterviewRepository _jobInterviewRepository;
 
         public UserService(
             IUserRepository repository,
+            ISkillRepository skillRepository,
             IUserSkillRepository userSkillRepository,
-            ISkillRepository skillRepository)
+            IJobApplicantRepository jobApplicantRepository,
+            IJobInterviewRepository jobInterviewRepository)
         {
             _repository = repository;
-            _userSkillRepository = userSkillRepository;
             _skillRepository = skillRepository;
+            _userSkillRepository = userSkillRepository;
+            _jobApplicantRepository = jobApplicantRepository;
+            _jobInterviewRepository = jobInterviewRepository;
         }
 
         public User Get(long id)
@@ -30,6 +36,20 @@ namespace Core.Services
             if (user != null)
             {
                 user.Skills = LoadSkills(id);
+
+                var jobApplications = _jobApplicantRepository.GetAll().Where(x => x.IdApplicant == id);
+
+                user.JobApplications = jobApplications
+                    .Where(x => x.Status.Equals(JobApplicantStatus.InProcess))
+                    .Count();
+
+                user.JobApplicationsApproved = jobApplications
+                   .Where(x => x.Status.Equals(JobApplicantStatus.Approved))
+                   .Count();
+
+                user.JobInterviews = _jobInterviewRepository.GetAll()
+                    .Where(x => x.IdJobApplicant == id)
+                    .Count();
             }
 
             return user;
@@ -38,12 +58,6 @@ namespace Core.Services
         public List<User> GetAll()
         {
             var users = _repository.GetAll();
-
-            foreach (var user in users)
-            {
-                user.Skills = LoadSkills(user.Id);
-            }
-
             return users;
         }
 

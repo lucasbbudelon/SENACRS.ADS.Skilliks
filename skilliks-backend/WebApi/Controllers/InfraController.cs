@@ -31,23 +31,34 @@ namespace WebApi.Controllers
         private readonly IJobApplicantRepository _jobApplicantRepository;
         private readonly IJobApplicantService _jobApplicantService;
 
-        public InfraController()
+        public InfraController(
+            ISkillRepository skillRepository,
+            ISkillService skillService,
+            IUserService userService,
+            IUserRepository userRepository,
+            IUserSkillRepository userSkillRepository,
+            IJobService jobService,
+            IJobRepository jobRepository,
+            IJobSkillRepository jobSkillRepository,
+            IJobApplicantRepository jobApplicantRepository,
+            IJobApplicantService jobApplicantService
+        )
         {
             _random = new Random();
 
-            _skillRepository = new SkillRepository();
-            _skillService = new SkillService(_skillRepository);
+            _skillRepository = skillRepository;
+            _skillService = skillService;
 
-            _userSkillRepository = new UserSkillRepository();
-            _userRepository = new UserRepository();
-            _userService = new UserService(_userRepository, _userSkillRepository, _skillRepository);
+            _userSkillRepository = userSkillRepository;
+            _userRepository = userRepository;
+            _userService = userService;
 
-            _jobSkillRepository = new JobSkillRepository();
-            _jobRepository = new JobRepository();
-            _jobService = new JobService(_jobRepository, _jobSkillRepository, _skillRepository);
+            _jobSkillRepository = jobSkillRepository;
+            _jobRepository = jobRepository;
+            _jobService = jobService;
 
-            _jobApplicantRepository = new JobApplicantRepository();
-            _jobApplicantService = new JobApplicantService(_jobApplicantRepository, _userService, _jobService);
+            _jobApplicantRepository = jobApplicantRepository;
+            _jobApplicantService = jobApplicantService;
         }
 
         [HttpPost]

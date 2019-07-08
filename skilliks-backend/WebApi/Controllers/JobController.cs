@@ -14,16 +14,10 @@ namespace WebApi.Controllers
     public class JobController : ControllerBase
     {
         private readonly IJobService _jobService;
-        private readonly IJobRepository _jobRepository;
-        private readonly IJobSkillRepository _jobSkillRepository;
-        private readonly ISkillRepository _skillRepository;
 
-        public JobController()
+        public JobController(IJobService jobService)
         {
-            _skillRepository = new SkillRepository();
-            _jobSkillRepository = new JobSkillRepository();
-            _jobRepository = new JobRepository();
-            _jobService = new JobService(_jobRepository, _jobSkillRepository, _skillRepository);
+            _jobService = jobService;
         }
 
         // GET: api/Job

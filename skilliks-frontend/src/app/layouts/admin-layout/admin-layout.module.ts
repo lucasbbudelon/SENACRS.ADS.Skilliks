@@ -10,6 +10,7 @@ import { JobInterviewFormComponent } from 'src/app/pages/job-interview/job-inter
 import { JobInterviewComponent } from 'src/app/pages/job-interview/job-interview.component';
 import { JobInterviewService } from 'src/app/pages/job-interview/job-interview.service';
 import { LoginService } from 'src/app/pages/login/login.service';
+import { TeamComponent } from 'src/app/pages/team/team.component';
 import { AuthInterceptor } from '../../auth/auth.interceptor';
 import { ApiFeedbackService } from '../../components/api-feedback/api-feedback.service';
 import { ComponentsModule } from '../../components/components.module';
@@ -22,9 +23,11 @@ import { JobService } from '../../pages/job/job.service';
 import { SkillComponent } from '../../pages/skill/skill.component';
 import { SkillService } from '../../pages/skill/skill.service';
 import { UserFormComponent } from '../../pages/user/user-form/user-form.component';
+import { UserHeaderComponent } from '../../pages/user/user-header/user-header.component';
 import { UserComponent } from '../../pages/user/user.component';
 import { UserService } from '../../pages/user/user.service';
 import { AdminLayoutRoutes } from './admin-layout.routing';
+import { TeamService } from 'src/app/pages/team/team.service';
 
 @NgModule({
   imports: [
@@ -40,6 +43,7 @@ import { AdminLayoutRoutes } from './admin-layout.routing';
   ],
   declarations: [
     UserComponent,
+    UserHeaderComponent,
     UserFormComponent,
     JobComponent,
     JobFormComponent,
@@ -47,7 +51,8 @@ import { AdminLayoutRoutes } from './admin-layout.routing';
     JobApplicantFormComponent,
     JobInterviewComponent,
     JobInterviewFormComponent,
-    SkillComponent
+    SkillComponent,
+    TeamComponent
   ],
   providers: [
     ApiFeedbackService,
@@ -56,6 +61,7 @@ import { AdminLayoutRoutes } from './admin-layout.routing';
     JobApplicantService,
     JobService,
     SkillService,
+    TeamService,
     LoginService,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ]

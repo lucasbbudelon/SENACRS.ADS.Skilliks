@@ -1,21 +1,30 @@
 <div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center">
   <span class="mask bg-dark"></span>
 </div>
-<div class="container-fluid mt--7 pb-5" *ngIf="jobApplicants">
+<div class="container-fluid mt--9 pb-5" *ngIf="jobApplicants">
   <div class="row">
     <div class="col">
       <div class="card shadow">
+        <div class="card-header border-0">
+          <h3 class="mb-0 float-left">
+            Lista de Cadidaturas
+          </h3>
+          <div class="float-right">
+
+          </div>
+        </div>
         <div class="table-responsive">
           <table class="table align-items-center table-flush">
             <thead class="thead-light">
               <tr>
                 <th scope="col">Vaga</th>
                 <th scope="col"></th>
+                <th scope="col">Time</th>
                 <th scope="col">Salário base</th>
                 <th scope="col">Nível</th>
                 <th scope="col">Candidato</th>
                 <th scope="col">Pretensão Salarial</th>
-                <th scope="col">Match</th>
+                <th scope="col">Score</th>
                 <th scope="col"></th>
                 <th scope="col"></th>
               </tr>
@@ -28,6 +37,11 @@
                 <td>
                   <a routerLink="/vaga/{{jobApplicant.job.id}}">
                     {{jobApplicant.job.name}}
+                  </a>
+                </td>
+                <td>
+                  <a routerLink="/time/{{jobApplicant.job.team.id}}">
+                    {{jobApplicant.job.team.name}}
                   </a>
                 </td>
                 <td>
@@ -46,19 +60,18 @@
                 </td>
                 <td>
                   <div class="d-flex align-items-center">
-                    <span class="mr-2">{{jobApplicant.ranking}}%</span>
+                    <span class="mr-2">{{jobApplicant.score}}%</span>
                     <div>
                       <div class="progress">
-                        <div class="progress-bar bg-primary" role="progressbar"
-                          [attr.aria-valuenow]="jobApplicant.ranking" aria-valuemin="0" aria-valuemax="100"
-                          [style.width.%]="jobApplicant.ranking">
+                        <div class="progress-bar bg-dark" role="progressbar" [attr.aria-valuenow]="jobApplicant.score"
+                          aria-valuemin="0" aria-valuemax="100" [style.width.%]="jobApplicant.score">
                         </div>
                       </div>
                     </div>
                   </div>
                 </td>
                 <td>
-                  <i *ngIf="jobApplicant.star" class="fas fa-star text-primary"></i>
+                  <i *ngIf="jobApplicant.star" class="fas fa-star text-dark"></i>
                 </td>
                 <td class="text-right">
                   <div ngbDropdown placement="bottom-right">
@@ -66,7 +79,7 @@
                       <i class="fas fa-ellipsis-v"></i>
                     </a>
                     <div ngbDropdownMenu class=" dropdown-menu-right dropdown-menu-arrow">
-                      <a class="dropdown-item" routerLink="/candidatura/{{jobApplicant.id}}">Comparativo</a>
+                      <a class="dropdown-item" routerLink="/candidatura/{{jobApplicant.id}}">Detalhes</a>
                       <a class="dropdown-item" routerLink="/entrevista/nova">Marcar entrevista</a>
                       <a class="dropdown-item" href="javascript:void(0)">Rejeitar cadidatura</a>
                     </div>
@@ -76,6 +89,7 @@
             </tbody>
           </table>
         </div>
+        <app-empty-list *ngIf="!jobApplicants.length"></app-empty-list>
       </div>
     </div>
   </div>
