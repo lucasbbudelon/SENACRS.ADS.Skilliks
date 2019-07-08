@@ -14,16 +14,10 @@ namespace WebApi.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
-        private readonly IUserRepository _userRepository;
-        private readonly IUserSkillRepository _userSkillRepository;
-        private readonly ISkillRepository _skillRepository;
 
-        public UserController()
+        public UserController(IUserService userService)
         {
-            _skillRepository = new SkillRepository();
-            _userSkillRepository = new UserSkillRepository();
-            _userRepository = new UserRepository();
-            _userService = new UserService(_userRepository, _userSkillRepository, _skillRepository);
+            _userService = userService;
         }
 
         // GET: api/User

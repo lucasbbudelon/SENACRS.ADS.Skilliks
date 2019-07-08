@@ -8,11 +8,16 @@ namespace Domain.Models
     public class JobFeedBackSkill : Entity, IEntity
     {
         [Category(EntityPropertyCategory.RelacionalKey)]
-        public int IdJobFeedBack { get; set; }
+        public long IdJobFeedBack { get; set; }
 
         [Category(EntityPropertyCategory.ForeignKey)]
-        public int IdSkill { get; set; }
+        public long IdSkill { get; set; }
 
+        [Category(EntityPropertyCategory.ForeignKey)]
+        public long IdApplicant { get; set; }
+
+        [Category(EntityPropertyCategory.Model)]
+        public long jobSkillRanking { get; set; }
 
         [Category(EntityPropertyCategory.Model)]
         public int SelfEvaluation { get; set; }
@@ -21,10 +26,10 @@ namespace Domain.Models
         public int TechnicalEvaluation { get; set; }
 
         [Category(EntityPropertyCategory.Model)]
-        public int Comment { get; set; }
-                 
+        public string Comment { get; set; }
         
         [Category(EntityPropertyCategory.Relacional)]
         public Skill Skill { get; set; }
+
     }
 }

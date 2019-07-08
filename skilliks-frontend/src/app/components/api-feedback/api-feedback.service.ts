@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, empty } from 'rxjs';
+import { BehaviorSubject, empty, of } from 'rxjs';
 import { flatMap } from 'rxjs/operators';
 
 @Injectable({
@@ -43,6 +43,6 @@ export class ApiFeedbackService {
   public handlerError(error) {
     console.log(error);
     this.showErrorMessage('Ocorreu um erro na comunicação com a API.');
-    return empty();
+    return of({});
   }
 }

@@ -17,12 +17,10 @@ namespace WebApi.Controllers
     public class SkillController : ControllerBase
     {
         private readonly ISkillService _skillService;
-        private readonly ISkillRepository _skillRepository;
 
-        public SkillController()
+        public SkillController(ISkillService skillService)
         {
-            _skillRepository = new SkillRepository();
-            _skillService = new SkillService(_skillRepository);
+            _skillService = skillService;
         }
 
         // GET: api/Skill

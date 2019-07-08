@@ -69,4 +69,16 @@
 @import "custom/vendors";
 
 // Angular Differences
-@import "angular-differences/angular-differences"
+@import "angular-differences/angular-differences";
+
+.content-page-defaut {
+  margin-top: -5.5rem;
+}
+
+a {
+  color: $dark !important;
+
+  &:hover {
+    color: $light !important;
+  }
+}

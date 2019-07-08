@@ -1,46 +1,88 @@
-<div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center">
-  <span class="mask bg-gradient-primary opacity-8"></span>
+<div class="header bg-gradient-dark pb-8 pt-5 pt-md-8">
+  <div class="container-fluid" *ngIf="jobApplicant">
+    <div class="header-body">
+      <div class="row">
+        <div class="col-xl-4 col-lg-6">
+          <a routerLink="/usuario/{{jobApplicant.applicant.id}}">
+            <div class="card card-stats mb-4 mb-xl-0">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col">
+                    <h5 class="card-title text-uppercase text-muted mb-0">CANDIDATO</h5>
+                    <span class="h2 font-weight-bold mb-0">{{jobApplicant.applicant.name}}</span>
+                  </div>
+                  <div class="col-auto avatar-group">
+                    <div class="avatar avatar-lg">
+                      <img [alt]="jobApplicant.applicant.name" [src]="jobApplicant.applicant.image"
+                        class="rounded-circle">
+                    </div>
+                  </div>
+                </div>
+                <p class="mt-3 mb-0 text-muted text-sm">
+                  <span class="text-dark mr-2">
+                    {{jobApplicant.applicant.currentPosition}} -
+                    {{jobApplicant.applicant.currentCompany}}
+                  </span>
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-xl-4 col-lg-6">
+          <div class="card card-stats mb-4 mb-xl-0">
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                  <h5 class="card-title text-uppercase text-muted mb-0">score</h5>
+                  <span class="h2 font-weight-bold mb-0 score">{{jobApplicant.score}}%</span>
+                </div>
+                <div class="col-auto">
+                  <div class="icon icon-shape bg-dark text-white rounded-circle shadow">
+                    <i class="fas fa-percent"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-4 col-lg-6">
+          <a routerLink="/vaga/{{jobApplicant.job.id}}">
+            <div class="card card-stats mb-4 mb-xl-0">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col">
+                    <h5 class="card-title text-uppercase text-muted mb-0">vaga</h5>
+                    <span class="h2 font-weight-bold mb-0">{{jobApplicant.job.name}}</span>
+                  </div>
+                  <div class="col-auto">
+                    <div class="icon icon-shape bg-dark text-white rounded-circle shadow">
+                      <i class="fas fa-user-tie"></i>
+                    </div>
+                  </div>
+                </div>
+                <p class="mt-4 mb-0 text-muted text-sm">
+                  <span class="text-nowrap">
+                    <app-job-level [level]="jobApplicant.job.level"></app-job-level>
+                  </span>
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-<div class="container-fluid mt--7" *ngIf="jobApplicant">
+<div class="container-fluid mt--7 pb-5" *ngIf="jobApplicant">
   <div class="row">
     <div class="col-xl-4 order-xl-2 mb-5 mb-xl-0">
       <div class="card shadow">
+        <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
+
+        </div>
         <div class="card-body pt-0 pt-mt-4">
-          <div class="row mt-4">
-            <div class="col d-flex justify-content-center">
-              <span class="match">{{jobApplicant.ranking}}%</span>
-            </div>
-          </div>
-          <div class="row mb-4">
-            <div class="col d-flex justify-content-center">
-              <span class="description">match</span>
-            </div>
-          </div>
-          <hr class="my-4" />
-          <div class="row">
-            <div class="col">
-              <h3>
-                <a routerLink="/vaga/{{jobApplicant.job.id}}"> Vaga </a>
-              </h3>
-              <ul>
-                <li><strong>Nome:</strong> {{jobApplicant.job.name}}</li>
-                <li><strong>Salário base:</strong> {{jobApplicant.job.remuneration | currency}}</li>
-              </ul>
-            </div>
-          </div>
-          <hr class="my-4" />
-          <div class="row">
-            <div class="col">
-              <h3>
-                <a routerLink="/usuario/{{jobApplicant.applicant.id}}"> Candidato </a>
-              </h3>
-              <ul>
-                <li><strong>Nome:</strong> {{jobApplicant.applicant.name}}</li>
-                <li><strong>Pretenção salarial:</strong> {{jobApplicant.salaryClaim | currency}}</li>
-                <li><strong>Salário atual:</strong> {{jobApplicant.applicant.currentWage | currency}}</li>
-              </ul>
-            </div>
-          </div>
+          <h3> Descrição da Vaga</h3>
+          <p>{{jobApplicant.job.description}}</p>
         </div>
       </div>
     </div>
@@ -84,7 +126,7 @@
                   <app-star-ranking [ranking]="jobSkill.rankingApplicant"></app-star-ranking>
                 </td>
                 <td>
-                  <i *ngIf="jobSkill.rankingApplicant > jobSkill.ranking" class="fas fa-star mx-2 text-primary"></i>
+                  <i *ngIf="jobSkill.rankingApplicant > jobSkill.ranking" class="fas fa-star mx-2 text-dark"></i>
                 </td>
               </tr>
             </tbody>

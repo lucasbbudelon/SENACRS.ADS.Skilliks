@@ -28,7 +28,7 @@ namespace Core.Services
 
             jobApplicant.Applicant = _userService.Get(jobApplicant.IdApplicant);
             jobApplicant.Job = _jobService.Get(jobApplicant.IdJob);
-            jobApplicant.Ranking = CalculateRanking(jobApplicant);
+            jobApplicant.Score = CalculateScore(jobApplicant);
 
             return jobApplicant;
         }
@@ -41,14 +41,32 @@ namespace Core.Services
             {
                 jobApplicant.Applicant = _userService.Get(jobApplicant.IdApplicant);
                 jobApplicant.Job = _jobService.Get(jobApplicant.IdJob);
-                jobApplicant.Ranking = CalculateRanking(jobApplicant);
+                jobApplicant.Score = CalculateScore(jobApplicant);
             }
 
             return jobApplicants;
         }
 
+        public List<JobApplicant> GetAll(User user)
+        {
+            var list = GetAll();
+
+            if (user.Type.Equals(UserType.Applicant))
+            {
+                list = list.Where(x => x.Applicant.Id == user.Id).ToList();
+            }
+            else if (user.Category.Equals(UserCategory.Technical))
+            {
+                list = list.Where(x => x.Job.IdTeam == user.IdTeam).ToList();
+            }
+
+            return list;
+        }
+
         public JobApplicant Insert(JobApplicant entity)
         {
+            entity.Status = JobApplicantStatus.InProcess;
+
             return _repository.Insert(entity);
         }
 
@@ -62,29 +80,22 @@ namespace Core.Services
             _repository.DeleteLogical(id);
         }
 
-        private double CalculateRanking(JobApplicant jobApplicant)
+        private double CalculateScore(JobApplicant jobApplicant)
         {
             double ranking = 0;
 
             foreach (var jobSkill in jobApplicant.Job.Skills)
             {
-                var applicantSkill = jobApplicant.Applicant.Skills.FirstOrDefault(s => s.IdSkill == jobSkill.IdSkill);
-
+                var applicantSkill = jobApplicant.Applicant.Skills.FirstOrDefault(x => x.IdSkill == jobSkill.IdSkill);
                 if (applicantSkill != null)
                 {
-                    var percent = 100 / jobApplicant.Job.Skills.Count;
-
-                    if (applicantSkill.Ranking > jobSkill.Ranking)
-                    {
-                        ranking += jobSkill.Weight;
-                        jobApplicant.Star = true;
-                    }
-                    else
-                    {
-                        ranking += (jobSkill.Weight / jobSkill.Ranking) * applicantSkill.Ranking;
-                    }
+                    ranking += applicantSkill.Ranking > jobSkill.Ranking
+                            ? jobSkill.Weight
+                            : (jobSkill.Weight / jobSkill.Ranking) * applicantSkill.Ranking;
                 }
             }
+
+            jobApplicant.Star = ranking >= jobApplicant.Job.MinScore;
 
             return ranking;
         }

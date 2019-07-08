@@ -1,32 +1,40 @@
-<app-user-header [users]="users"></app-user-header>
-<div class="container-fluid mt--7">
+<div class="header bg-gradient-dark pb-8 pt-5 pt-md-8" *ngIf="users">
+  <app-user-header [users]="users"></app-user-header>
+</div>
+<div class="container-fluid mt--7 pb-5" *ngIf="users">
   <div class="row">
     <div class="col">
       <div class="card shadow">
+        <div class="card-header border-0">
+          <h3 class="mb-0 float-left">
+            Lista de Usuários
+          </h3>
+          <div class="float-right">
+            <app-search (value)="changeSearch($event)"></app-search>
+          </div>
+        </div>
         <div class="table-responsive">
           <table class="table align-items-center table-flush">
             <thead class="thead-light">
               <tr>
+                <th scope="col">Código</th>
                 <th scope="col">Nome</th>
                 <th scope="col">Email</th>
                 <th scope="col">Tipo</th>
                 <th scope="col">Categoria</th>
                 <th scope="col">Status</th>
-                <th scope="col"></th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let user of users">
-                <th scope="row">
-                  <div class="media align-items-center">
-                    <a routerLink="/usuario/{{user.id}}" class="avatar rounded-circle mr-3">
-                      <img [src]="user.image" class="rounded-circle">
-                    </a>
-                    <div class="media-body">
-                      <span class="mb-0 text-sm">{{user.name}}</span>
-                    </div>
-                  </div>
+                <th>
+                  <a routerLink="/usuario/{{user.id}}">
+                    {{user.id}}
+                  </a>
                 </th>
+                <td>
+                  {{user.name}}
+                </td>
                 <td>
                   {{user.email}}
                 </td>
@@ -36,7 +44,7 @@
                 </td>
                 <td [ngSwitch]="user.category">
                   <span *ngSwitchCase="1">técnico</span>
-                  <span *ngSwitchCase="2">RH</span>
+                  <span *ngSwitchCase="2">recrutador</span>
                 </td>
                 <td>
                   <span class="badge badge-dot mr-4">
@@ -44,21 +52,11 @@
                     <span *ngIf="!user.isEnable"><i class="bg-warning"></i> desabilitado</span>
                   </span>
                 </td>
-                <td class="text-right">
-                  <div ngbDropdown placement="bottom-right">
-                    <a class="btn btn-sm btn-icon-only text-light" ngbDropdownToggle>
-                      <i class="fas fa-ellipsis-v"></i>
-                    </a>
-                    <div ngbDropdownMenu class=" dropdown-menu-right dropdown-menu-arrow">
-                      <a class="dropdown-item" routerLink="/usuario/{{user.id}}">Ver perfil</a>
-                      <a class="dropdown-item" href="javascript:void(0)">Excluir</a>
-                    </div>
-                  </div>
-                </td>
               </tr>
             </tbody>
           </table>
         </div>
+        <app-empty-list *ngIf="!users.length"></app-empty-list>
       </div>
     </div>
   </div>

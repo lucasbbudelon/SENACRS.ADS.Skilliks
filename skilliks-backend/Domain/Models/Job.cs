@@ -9,6 +9,13 @@ namespace Domain.Models
 {
     public class Job : Entity, IEntity
     {
+        [Category(EntityPropertyCategory.ForeignKey)]
+        public int IdTeam { get; set; }
+
+        [Category(EntityPropertyCategory.Relacional)]
+        public Team Team { get; set; }
+
+
         [Category(EntityPropertyCategory.Model)]
         public string Name { get; set; }
 
@@ -21,7 +28,10 @@ namespace Domain.Models
         [Category(EntityPropertyCategory.Model)]
         public double Remuneration { get; set; }
 
+        [Category(EntityPropertyCategory.Model)]
+        public double MinScore { get; set; }
 
+        
         [Category(EntityPropertyCategory.Relacional)]
         public List<JobSkill> Skills { get; set; }
     }

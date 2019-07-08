@@ -1,12 +1,17 @@
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ClipboardModule } from 'ngx-clipboard';
 import { NgxMaskModule } from 'ngx-mask';
-import { AuthModule } from 'src/app/auth/auth.module';
+import { JobInterviewFormComponent } from 'src/app/pages/job-interview/job-interview-form/job-interview-form.component';
+import { JobInterviewComponent } from 'src/app/pages/job-interview/job-interview.component';
+import { JobInterviewService } from 'src/app/pages/job-interview/job-interview.service';
+import { LoginService } from 'src/app/pages/login/login.service';
+import { TeamComponent } from 'src/app/pages/team/team.component';
+import { AuthInterceptor } from '../../auth/auth.interceptor';
 import { ApiFeedbackService } from '../../components/api-feedback/api-feedback.service';
 import { ComponentsModule } from '../../components/components.module';
 import { JobApplicantFormComponent } from '../../pages/job-applicant/job-applicant-form/job-applicant-form.component';
@@ -22,6 +27,7 @@ import { UserHeaderComponent } from '../../pages/user/user-header/user-header.co
 import { UserComponent } from '../../pages/user/user.component';
 import { UserService } from '../../pages/user/user.service';
 import { AdminLayoutRoutes } from './admin-layout.routing';
+import { TeamService } from 'src/app/pages/team/team.service';
 
 @NgModule({
   imports: [
@@ -33,25 +39,31 @@ import { AdminLayoutRoutes } from './admin-layout.routing';
     NgxMaskModule.forRoot(),
     NgbModule,
     ClipboardModule,
-    ComponentsModule,
-    AuthModule
+    ComponentsModule
   ],
   declarations: [
     UserComponent,
     UserHeaderComponent,
     UserFormComponent,
-    JobApplicantComponent,
-    JobApplicantFormComponent,
     JobComponent,
     JobFormComponent,
-    SkillComponent
+    JobApplicantComponent,
+    JobApplicantFormComponent,
+    JobInterviewComponent,
+    JobInterviewFormComponent,
+    SkillComponent,
+    TeamComponent
   ],
   providers: [
     ApiFeedbackService,
     UserService,
+    JobInterviewService,
     JobApplicantService,
     JobService,
-    SkillService
+    SkillService,
+    TeamService,
+    LoginService,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ]
 })
 

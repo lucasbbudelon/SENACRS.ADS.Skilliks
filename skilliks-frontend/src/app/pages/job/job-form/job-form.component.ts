@@ -24,6 +24,14 @@ export class JobFormComponent implements OnInit {
     this.loadJob();
   }
 
+  getSumJobSkillWeight() {
+    return this.job.skills
+      .map(x => x.weight)
+      .reduce((total, weight) => {
+        return total + weight;
+      });
+  }
+
   private loadJob() {
 
     const id = this.activatedRoute.snapshot.paramMap.get('id');

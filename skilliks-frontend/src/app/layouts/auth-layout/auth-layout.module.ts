@@ -3,19 +3,22 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { LoginComponent } from '../../pages/login/login.component';
-import { RegisterComponent } from '../../pages/register/register.component';
 import { AuthLayoutRoutes } from './auth-layout.routing';
+import { ReactiveFormsModule } from '@angular/forms';
+import { LoginService } from 'src/app/pages/login/login.service';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule.forChild(AuthLayoutRoutes),
-    FormsModule
-    // NgbModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   declarations: [
-    LoginComponent,
-    RegisterComponent
+    LoginComponent
+  ],
+  providers: [
+    LoginService
   ]
 })
 export class AuthLayoutModule { }

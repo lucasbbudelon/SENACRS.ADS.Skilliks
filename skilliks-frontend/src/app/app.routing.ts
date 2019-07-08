@@ -9,7 +9,6 @@ import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component
 const routes: Routes = [
   {
     path: '',
-    canActivate: [AuthGuard],
     redirectTo: 'candidaturas',
     pathMatch: 'full',
   },

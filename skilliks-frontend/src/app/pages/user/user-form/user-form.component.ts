@@ -4,7 +4,8 @@ import { catchError, finalize, tap } from 'rxjs/operators';
 import { ApiFeedbackService } from 'src/app/components/api-feedback/api-feedback.service';
 import { User } from '../user.model';
 import { UserService } from '../user.service';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { $ } from 'protractor';
 
 @Component({
   selector: 'app-user-form',
@@ -13,22 +14,18 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 })
 export class UserFormComponent implements OnInit {
 
-  form: FormGroup;
-
   public id: string;
+  public safeBackgroundUrl: SafeResourceUrl;
   public user: User;
   public editMode: boolean;
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private formBuilder: FormBuilder,
+    private sanitizer: DomSanitizer,
     private apiFeedbackService: ApiFeedbackService,
     private userService: UserService
   ) {
-    this.form = this.formBuilder.group({
-      'name': ['', Validators.required],
-      'description': ['', Validators.required]
-    });
+
   }
 
   ngOnInit() {
@@ -36,12 +33,19 @@ export class UserFormComponent implements OnInit {
     this.loadUser();
   }
 
+  getBackgroundUser() {
+    return `url(${this.user.background})`;
+  }
+
   private loadUser() {
     this.apiFeedbackService.showLoading();
     this.user = null;
     this.userService.getById(this.id)
       .pipe(
-        tap(user => this.user = user),
+        tap((user) => {
+          this.user = user;
+          this.safeBackgroundUrl = this.sanitizer.bypassSecurityTrustUrl(user.background);
+        }),
         catchError((error) => this.apiFeedbackService.handlerError(error)),
         finalize(() => this.apiFeedbackService.hideLoading())
       )

@@ -11,6 +11,7 @@ import { JobService } from './job.service';
 })
 export class JobComponent implements OnInit {
 
+  private list: Job[];
   public jobs: Job[];
 
   constructor(
@@ -22,11 +23,21 @@ export class JobComponent implements OnInit {
     this.loadList();
   }
 
+  changeSearch(value: string) {
+    const valueLowerCase = value.toLocaleLowerCase();
+    this.jobs = this.list.filter(x =>
+      x.name.toLocaleLowerCase().indexOf(valueLowerCase) !== -1 ||
+      x.description.toLocaleLowerCase().indexOf(valueLowerCase) !== -1 ||
+      x.remuneration.toString().indexOf(valueLowerCase) !== -1 ||
+      x.team.name.toLocaleLowerCase().indexOf(valueLowerCase) !== -1
+    );
+  }
+
   private loadList() {
     this.apiFeedbackService.showLoading();
     this.jobService.getAll()
       .pipe(
-        tap((jobs) => this.jobs = jobs),
+        tap(jobs => this.list = this.jobs = jobs),
         catchError((error) => this.apiFeedbackService.handlerError(error)),
         finalize(() => this.apiFeedbackService.hideLoading())
       )

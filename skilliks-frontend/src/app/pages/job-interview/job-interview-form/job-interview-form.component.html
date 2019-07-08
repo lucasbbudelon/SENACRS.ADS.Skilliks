@@ -1,0 +1,167 @@
+<div class="header bg-gradient-dark pb-8 pt-5 pt-md-8">
+  <div class="container-fluid">
+    <div class="header-body">
+      <div class="row">
+        <div class="col-xl-3 col-lg-6">
+          <a routerLink="usuario/{{jobInterview.jobApplicant.applicant.id}}">
+            <div class="card card-stats mb-4 mb-xl-0">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col">
+                    <h5 class="card-title text-uppercase text-muted mb-0">CANDIDATO</h5>
+                    <span class="h2 font-weight-bold mb-0">{{jobInterview.jobApplicant.applicant.name}}</span>
+                  </div>
+                  <div class="col-auto avatar-group">
+                    <div class="avatar avatar-lg">
+                      <img [alt]="jobInterview.jobApplicant.applicant.name"
+                        [src]="jobInterview.jobApplicant.applicant.image" class="rounded-circle">
+                    </div>
+                  </div>
+                </div>
+                <p class="mt-3 mb-0 text-muted text-sm">
+                  <span class="text-dark mr-2">
+                    {{jobInterview.jobApplicant.applicant.currentPosition}} -
+                    {{jobInterview.jobApplicant.applicant.currentCompany}}
+                  </span>
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-xl-3 col-lg-6">
+          <a routerLink="usuario/{{jobInterview.userTechnical.id}}">
+            <div class="card card-stats mb-4 mb-xl-0">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col">
+                    <h5 class="card-title text-uppercase text-muted mb-0">TÉCNICO</h5>
+                    <span class="h2 font-weight-bold mb-0">{{jobInterview.userTechnical.name}}</span>
+                  </div>
+                  <div class="col-auto avatar-group">
+                    <div class="avatar avatar-lg">
+                      <img [alt]="jobInterview.userTechnical.name" [src]="jobInterview.userTechnical.image"
+                        class="rounded-circle">
+                    </div>
+                  </div>
+                </div>
+                <p class="mt-3 mb-0 text-muted text-sm">
+                  <span class="text-dark mr-2">
+                    {{jobInterview.userTechnical.currentPosition}} -
+                    {{jobInterview.userTechnical.currentCompany}}
+                  </span>
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-xl-3 col-lg-6">
+          <a routerLink="usuario/{{jobInterview.userRecruiter.id}}">
+            <div class="card card-stats mb-4 mb-xl-0">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col">
+                    <h5 class="card-title text-uppercase text-muted mb-0">recrutador</h5>
+                    <span class="h2 font-weight-bold mb-0">{{jobInterview.userRecruiter.name}}</span>
+                  </div>
+                  <div class="col-auto avatar-group">
+                    <div class="avatar avatar-lg">
+                      <img [alt]="jobInterview.userRecruiter.name" [src]="jobInterview.userRecruiter.image"
+                        class="rounded-circle">
+                    </div>
+                  </div>
+                </div>
+                <p class="mt-3 mb-0 text-muted text-sm">
+                  <span class="text-dark mr-2">
+                    {{jobInterview.userRecruiter.currentPosition}} -
+                    {{jobInterview.userRecruiter.currentCompany}}
+                  </span>
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-xl-3 col-lg-6" *ngIf="jobInterview.jobFeedBack">
+          <a routerLink="/vaga/{{jobInterview.jobFeedBack.job.id}}">
+            <div class="card card-stats mb-4 mb-xl-0">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col">
+                    <h5 class="card-title text-uppercase text-muted mb-0">vaga</h5>
+                    <span class="h2 font-weight-bold mb-0">{{jobInterview.jobFeedBack.job.name}}</span>
+                  </div>
+                  <div class="col-auto">
+                    <div class="icon icon-shape bg-dark text-white rounded-circle shadow">
+                      <i class="fas fa-user-tie"></i>
+                    </div>
+                  </div>
+                </div>
+                <p class="mt-4 mb-0 text-muted text-sm">
+                  <span class="text-nowrap">
+                    <app-job-level [level]="jobInterview.jobFeedBack.job.level"></app-job-level>
+                  </span>
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid mt--7 mb-5">
+  <div class="row">
+    <div class="col-xl-12 order-xl-1" *ngIf="jobInterview.jobFeedBack">
+      <div class="card bg-secondary shadow">
+        <div class="card-header border-0">
+          <div class="row align-items-center">
+            <div class="col-8">
+              <h3 class="mb-0">Diário da Entrevista</h3>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <table class="table align-items-center table-flush">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col">Skill</th>
+                <th scope="col">Vaga</th>
+                <th scope="col">Auto-avaliação candidado</th>
+                <th scope="col">Avaliação Técnica</th>
+                <th scope="col">Comentario</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let jobFeedBackSkill of jobInterview.jobFeedBack.skills">
+                <td>
+                  {{jobFeedBackSkill.skill.name}}
+                </td>
+                <td>
+                  <app-star-ranking [ranking]="jobFeedBackSkill.jobSkillRanking"></app-star-ranking>
+                </td>
+                <td>
+                  <app-star-ranking [ranking]="jobFeedBackSkill.selfEvaluation"></app-star-ranking>
+                </td>
+                <td>
+                  <app-star-ranking [ranking]="jobFeedBackSkill.technicalEvaluation"></app-star-ranking>
+                </td>
+                <td>
+                  <p>{{jobFeedBackSkill.comment}}</p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <hr class="my-4" />
+          <h6 class="heading-small text-muted mb-4">FeedBack Tecnico</h6>
+          <div class="pl-lg-12">
+            <p>{{jobInterview.jobFeedBack.technical}}</p>
+          </div>
+          <hr class="my-4" />
+          <h6 class="heading-small text-muted mb-4">FeedBack do Recrutador</h6>
+          <div class="pl-lg-12">
+            <p>{{jobInterview.jobFeedBack.recruiter}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

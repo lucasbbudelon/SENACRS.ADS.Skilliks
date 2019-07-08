@@ -1,0 +1,66 @@
+<div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center">
+  <span class="mask bg-dark"></span>
+</div>
+<div class="container-fluid mt--9 pb-5" *ngIf="jobInterviews">
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header border-0">
+          <h3 class="mb-0">Lista de Entrevistas</h3>
+        </div>
+        <div class="table-responsive">
+          <table class="table align-items-center table-flush">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col">Código</th>
+                <th scope="col">Vaga</th>
+                <th scope="col">Recrutador</th>
+                <th scope="col">Técnico</th>
+                <th scope="col">Candidato</th>
+                <th scope="col">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let jobInterview of jobInterviews">
+                <th scope="row">
+                  <a routerLink="/entrevista/{{jobInterview.id}}">
+                    {{jobInterview.id}}
+                  </a>
+                </th>
+                <td>
+                  <a routerLink="/vaga/{{jobInterview.jobApplicant.job.id}}">
+                    {{jobInterview.jobApplicant.job.name}}
+                  </a>
+                </td>
+                <td>
+                  <a routerLink="/usuario/{{jobInterview.userRecruiter.id}}">
+                    {{jobInterview.userRecruiter.name}}
+                  </a>
+                </td>
+                <td>
+                  <a routerLink="/usuario/{{jobInterview.userTechnical.id}}">
+                    {{jobInterview.userTechnical.name}}
+                  </a>
+                </td>
+                <td>
+                  <a routerLink="/usuario/{{jobInterview.jobApplicant.applicant.id}}">
+                    {{jobInterview.jobApplicant.applicant.name}}
+                  </a>
+                </td>
+                <td>
+                  <span class="badge badge-dot mr-4">
+                    <span *ngIf="!jobInterview.jobFeedBack"><i class="bg-warning"></i> agendadada para
+                      {{jobInterview.date | date:'dd MMM hh:mm'}}</span>
+                    <span *ngIf="jobInterview.jobFeedBack"><i class="bg-success"></i> efetuada em
+                      {{jobInterview.date | date:'dd MMM hh:mm'}}</span>
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <app-empty-list *ngIf="!jobInterviews.length"></app-empty-list>
+      </div>
+    </div>
+  </div>
+</div>

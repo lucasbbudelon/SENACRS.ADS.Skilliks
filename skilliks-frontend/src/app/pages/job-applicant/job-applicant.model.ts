@@ -5,6 +5,6 @@ export interface JobApplicant {
     job: Job;
     applicant: User;
     salaryClaim: number;
-    ranking: number;
+    score: number;
     star: boolean;
 }
